@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ribbon Interface</title>
+  <link rel="stylesheet" href="css/reset.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="./css/dark.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <div id="header">
+
+    <div id="ribbon">
+      <nav>
+        <ul>
+          <li><a href="#">文件</a></li>
+          <li><a href="#">开始</a></li>
+          <li><a href="#">插入</a></li>
+          <li><a href="#">设计</a></li>
+          <li><a href="#">切换</a></li>
+          <li><a href="#">动画</a></li>
+          <li><a href="#">视图</a></li>
+          <li><a href="#">帮助</a></li>
+        </ul>
+      </nav>
+      <div class="tab">
+      </div>
+    </div>
+    <div class="ribbonbar">
+      <button id="customButton" class="file-upload-btn">选择文件</button>
+      <button id="customButton1" class="file-upload-btn">生成插件</button>
+      <input type="file" id="fileInput" accept=".xml" style="display: none;" />
+    </div>
+
+
+  </div>
+
+  <div id="container">
+    <div id="leftSidebar">
+      <pre id="output" class="language-xml"><code id="codeOutput"></code></pre>
+    </div>
+
+    <div id="dragbar"></div>
+
+    <div id="rightSidebar">
+      <ul id="xmlTree" class="tree"></ul>
+    </div>
+
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-xml.min.js"></script>
+  <script type="module" src="main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>XML Editor</title>
+  <style>
+    body,
+    html {
+      height: 100%;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #header {
+      height: 20%;
+      background-color: #f0f0f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #container {
+      flex: 1;
+      /* 让容器充满剩余空间 */
+      display: flex;
+      flex-direction: row;
+      /* 左右布局 */
+      overflow: hidden;
+      /* 隐藏超出部分 */
+    }
+
+    #leftSidebar,
+    #rightSidebar {
+      overflow: auto;
+      padding: 10px;
+      flex: 1;
+      /* 让侧边栏充满父容器的宽度 */
+      min-width: 200px;
+      /* 设置最小宽度 */
+      max-width: 50%;
+      /* 设置最大宽度 */
+      border: 2px solid #ccc;
+    }
+
+    #dragbarVertical {
+      width: 5px;
+      /* 设置宽度 */
+      cursor: ew-resize;
+      /* 设置光标为左右调整 */
+      background-color: #ccc;
+    }
+
+    #topSidebar,
+    #bottomSidebar {
+      overflow: auto;
+      padding: 10px;
+      flex: 1;
+      /* 让侧边栏充满父容器的高度 */
+      min-height: 100px;
+      /* 设置最小高度 */
+      max-height: 50%;
+      /* 设置最大高度 */
+      border: 2px solid #ccc;
+    }
+
+    #dragbarHorizontal {
+      height: 5px;
+      /* 设置高度 */
+      cursor: ns-resize;
+      /* 设置光标为上下调整 */
+      background-color: #ccc;
+    }
+
+    pre {
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    .highlight {
+      background-color: yellow;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="header">
+    <input type="file" id="fileInput" />
+  </div>
+  <div id="container">
+    <div id="leftSidebar">
+      <pre id="xmlContent"></pre>
+    </div>
+    <div id="dragbarVertical"></div>
+    <div id="rightSidebar">
+      <ul id="xmlTree"></ul>
+    </div>
+  </div>
+  <div id="dragbarHorizontal"></div>
+  <div id="bottomSidebar"></div>
+
+  <script>
+    let verticalDragging = false;
+    let horizontalDragging = false;
+
+    document.getElementById('dragbarVertical').addEventListener('mousedown', function (e) {
+      verticalDragging = true;
+      document.body.style.cursor = 'ew-resize'; // 设置光标为左右调整
+    });
+
+    document.getElementById('dragbarHorizontal').addEventListener('mousedown', function (e) {
+      horizontalDragging = true;
+      document.body.style.cursor = 'ns-resize'; // 设置光标为上下调整
+    });
+
+    document.addEventListener('mousemove', function (e) {
+      if (verticalDragging) {
+        let container = document.getElementById('container');
+        let leftSidebar = document.getElementById('leftSidebar');
+        let rightSidebar = document.getElementById('rightSidebar');
+        let dragbarVertical = document.getElementById('dragbarVertical');
+        let offsetX = e.clientX - container.offsetLeft;
+        let containerWidth = container.clientWidth;
+        leftSidebar.style.width = offsetX + 'px';
+        rightSidebar.style.width = (containerWidth - offsetX - dragbarVertical.clientWidth) + 'px';
+      } else if (horizontalDragging) {
+        let container = document.getElementById('container');
+        let topSidebar = document.getElementById('topSidebar');
+        let bottomSidebar = document.getElementById('bottomSidebar');
+        let dragbarHorizontal = document.getElementById('dragbarHorizontal');
+        let offsetY = e.clientY - container.offsetTop;
+        let containerHeight = container.clientHeight;
+        topSidebar.style.height = offsetY + 'px';
+        bottomSidebar.style.height = (containerHeight - offsetY - dragbarHorizontal.clientHeight) + 'px';
+      }
+    });
+
+    document.addEventListener('mouseup', function () {
+      verticalDragging = false;
+      horizontalDragging = false;
+      document.body.style.cursor = 'default';
+    });
+  </script>
+</body>
+
+</html>

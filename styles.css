@@ -1,0 +1,434 @@
+
+/* 定义滚动条轨道的样式 */
+::-webkit-scrollbar-track {
+  background-color: #1A1A1A;
+  /* 轨道颜色，透明度较低 */
+}
+
+/* 定义滚动条滑块的样式 */
+::-webkit-scrollbar-thumb {
+  background-color: rgba(138, 138, 138, 0.5);
+  /* 滑块颜色，透明度适中 */
+  border-radius: 10px;
+  /* 滑块圆角 */
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color:#007AFC;
+  width: 10px;
+}
+
+
+
+/* 定义滚动条的宽度 */
+::-webkit-scrollbar {
+  width: 6px;
+  /* 滚动条宽度 */
+}
+
+/* 定义滚动条的滚动按钮 */
+::-webkit-scrollbar-button {
+  display: none;
+  /* 隐藏滚动条的滚动按钮 */
+}
+
+/* 定义滚动条角落的样式 */
+::-webkit-scrollbar-corner {
+  background-color: transparent;
+  /* 角落颜色 */
+}
+
+::-webkit-details-marker {
+  display: none;
+}
+
+::-moz-list-bullet {
+  font-size: 0;
+  float: left;
+}
+
+
+html,body{
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+    font-family: "微软雅黑", "Microsoft YaHei", sans-serif;
+    width: 100%;
+    display: flex;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding-top: 50px;
+    background-color: #0A0A0A;
+    color: white;
+    justify-content: center;
+    flex-direction: column;
+    /* align-content: center; */
+    align-items: center;
+    gap: 20px;
+}
+
+
+.file-upload-btn {
+  padding: 7px 20px;
+  font-size: 15px;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  outline: none;
+  font-family: "微软雅黑", "Microsoft YaHei", sans-serif;
+  transition: background-color 0.3s ease;
+}
+
+.file-upload-btn:hover {
+  background-color: #0056b3;
+}
+
+
+#header {
+  width: 100%;
+  height: 30%;
+  display: flex;
+  row-gap: 20px;
+  flex-wrap: nowrap;
+  position: relative;
+  overflow: hidden;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+#container {
+  width: 100%;
+  height: 70%;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  border-top: 1px solid #5e5e5e;
+}
+
+#leftSidebar,
+#rightSidebar {
+  height: 100%;
+  overflow: hidden;
+  background-color: #0A0A0A;
+}
+
+
+#leftSidebar {
+  width: 50%;
+  border-right: 1px solid #575757; 
+}
+
+#rightSidebar {
+  width: 50%;
+  /* padding: 20px; */
+  
+}
+
+#dragbar {
+  width: 5px;
+  cursor: ew-resize;
+  background-color: transparent;
+}
+
+#dragbar:hover {
+  background-color: #636363;
+}
+
+
+pre {
+  white-space: pre-wrap;
+  /* Wrap text as needed */
+  word-wrap: break-word;
+  /* Avoid overflow */
+}
+
+.highlight {
+  background-color: yellow;
+}
+
+#xmlTree{
+  flex: 1;
+  overflow: auto;
+  padding: 4px 0;
+  position: relative;
+  /* width: 100%; */
+}
+
+
+
+/* .tree {
+  flex: 1;
+  overflow: auto;
+  padding: 4px 0;
+  position: relative;
+} */
+
+
+
+.tree-item {
+  cursor: move;
+  /* 添加拖拽时的光标样式 */
+}
+
+.tree summary {
+  outline: 0;
+  padding-left: 30px;
+  list-style: none;
+  background: repeating-linear-gradient(90deg, #999 0 1px, transparent 0px 2px) 0px 50%/20px 1px no-repeat;
+  /* background: linear-gradient(#999,#999) 0px 50%/20px 1px no-repeat; */
+}
+
+.tree details:last-child {
+  background-size: 1px 23px;
+}
+
+.tree>details:not(:last-child)>details:last-child {
+  background-size: 1px 100%;
+}
+
+.tree details {
+  padding-left: 40px;
+  background: repeating-linear-gradient(#999 0 1px, transparent 0px 2px) 40px 0px/1px 100% no-repeat;
+  /* background: linear-gradient(#999, #999) 40px 0px/1px 100% no-repeat; */
+}
+
+.tree>details {
+  background: none;
+  padding-left: 0;
+}
+
+.tree>details>summary {
+  background: none;
+}
+
+.tree summary {
+  display: flex;
+  align-items: center;
+  height: 46px;
+  font-size: 15px;
+  line-height: 22px;
+  color: rgba(255, 255, 255, 0.85);
+  cursor: default;
+}
+
+.tree summary::after {
+  content: "";
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  height: 38px;
+  background: rgba(0, 86, 179, 0.8);
+  border-radius: 4px;
+  z-index: -1;
+  opacity: 0;
+  transition: 0.2s;
+}
+
+.tree summary:hover::after {
+  opacity: 1;
+}
+
+.tree summary:not(:only-child)::before {
+  content: "";
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  margin-right: 8px;
+  border: 1px solid #999;
+  background: linear-gradient(#999, #999) 50%/1px 10px no-repeat,
+    linear-gradient(#999, #999) 50%/10px 1px no-repeat;
+}
+
+.tree details[open]>summary::before {
+  background: linear-gradient(#999, #999) 50%/10px 1px no-repeat;
+}
+
+
+
+
+
+.ribbonbar{
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  flex-wrap: nowrap;
+  column-gap: 10px;
+}
+
+#ribbon {
+  width: 80%;
+  display: flex;
+  flex-wrap: nowrap;
+  position:relative;
+  background-color: #0A0A0A;
+  padding: 32px 8px 8px 8px;
+  height: 101px;
+  /* border-bottom: 1px solid #666666; */
+  overflow-x: auto;
+}
+
+
+
+#ribbon::-webkit-scrollbar {
+  height: 5px;
+}
+
+
+
+.tab {
+  position: absolute;
+  height: 88px;
+  left: 4px;
+  bottom: 3px;
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  border-radius: 8px;
+  background-color: #292929;
+}
+
+.group {
+  position:relative;
+  height: 91px;
+  display: grid; 
+  grid-template-rows: 16px 16px 16px;
+  grid-auto-flow: column;
+  /* grid-auto-columns: minmax(60px, auto); */
+  border-right: 1px solid #666666;
+  /* grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); */
+  width: 100%;
+  padding: 0px 13px 0px 13px;
+  gap: 10px; 
+}
+
+
+.group::after {
+  content: url('img/group.svg');
+  /* 替换为你的 SVG 图标路径 */
+  position: absolute;
+  right: 3px;
+  bottom: 0px;
+}
+
+.group::before {
+  content: attr(data-lable);
+  position: absolute;
+  left: 0;
+  text-align: center;
+  bottom: 0;
+  width: 100%;
+  font-size: 12px;
+  color: #fff;
+}
+
+
+.group .button {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  font-family: "Microsoft YaHei";
+  font-size: 12px;
+  color: #fff;
+  padding-left: 20px;
+  /* overflow: hidden; */
+  position: relative;
+  flex-direction: row;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+
+.group .checkBox {
+  display: flex;
+  height: 16px;
+  margin-bottom: 10px;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  column-gap: 3px;
+  white-space: nowrap;
+}
+
+
+.group .button:hover {
+  background-color: #333;
+}
+
+
+
+.sortable-line {
+  top: 0;
+  border-radius: 0;
+  position: absolute;
+  width: 4px;
+  background-color: #00a2ff;
+  /* height: 100%; */
+  /* display: none; */
+  z-index: 99999;
+}
+
+
+
+.group .button.large{
+  grid-row: 1 / span 3;
+  display: flex;
+  width: 42px;
+  font-family: "Microsoft YaHei";
+  font-size: 12px;
+  color: #fff;
+  padding: 0;
+  padding-top: 26px;
+  justify-content: center;
+  white-space:normal;
+}
+
+.button.large[data-image] {
+  background-repeat: no-repeat;
+  background-position-y:0;
+  background-position-x:center;
+  background-size: 32px 32px;
+}
+
+.button[data-image] {
+  background-repeat: no-repeat;
+  background-position-y: 0;
+  background-position-x: 0;
+  background-size: 16px 16px;
+}
+
+
+
+/* .size[data-image] {
+  background-repeat: no-repeat;
+  background-position-y: 4px;
+  background-position-x: center;
+  background-size: 32px 32px;
+} */
+
+.group .button.moving {
+  background-color: transparent;
+  color: transparent;
+  border: 1px solid #ccc;
+}
+
+
+
+
+input[type="file"] {
+  margin: 10px;
+  padding: 5px;
+  background-color: #444;
+  color: white;
+  border: none;
+  border-radius: 4px;
+}

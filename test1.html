@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>XML Editor</title>
+  <style>
+    body,
+    html {
+      height: 100%;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #header {
+      height: 20%;
+      background-color: #f0f0f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #container {
+      height: 80%;
+      display: flex;
+      flex-direction: row;
+      overflow: hidden;
+    }
+
+    #leftSidebar,
+    #rightSidebar {
+      height: 100%;
+      overflow: auto;
+      padding: 10px;
+    }
+
+    #leftSidebar {
+      width: 50%;
+      border-right: 2px solid #ccc;
+    }
+
+    #rightSidebar {
+      width: 50%;
+    }
+
+    #dragbar {
+      width: 5px;
+      cursor: ew-resize;
+      background-color: #ccc;
+    }
+
+    pre {
+      white-space: pre-wrap;
+      /* Wrap text as needed */
+      word-wrap: break-word;
+      /* Avoid overflow */
+    }
+
+    .highlight {
+      background-color: yellow;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="header">
+    <input type="file" id="fileInput" />
+  </div>
+  <div id="container">
+    <div id="leftSidebar">
+      <pre id="xmlContent"></pre>
+    </div>
+    <div id="dragbar"></div>
+    <div id="rightSidebar">
+      <ul id="xmlTree"></ul>
+    </div>
+  </div>
+
+  <script>
+    let dragging = false;
+
+    document.getElementById('dragbar').addEventListener('mousedown', function (e) {
+      dragging = true;
+      document.body.style.cursor = 'ew-resize';
+    });
+
+    document.addEventListener('mousemove', function (e) {
+      if (dragging) {
+        let container = document.getElementById('container');
+        let leftSidebar = document.getElementById('leftSidebar');
+        let rightSidebar = document.getElementById('rightSidebar');
+        let dragbar = document.getElementById('dragbar');
+        let offsetX = e.clientX - container.offsetLeft;
+        let containerWidth = container.clientWidth;
+        leftSidebar.style.width = offsetX + 'px';
+        rightSidebar.style.width = (containerWidth - offsetX - dragbar.clientWidth) + 'px';
+      }
+    });
+
+    document.addEventListener('mouseup', function () {
+      dragging = false;
+      document.body.style.cursor = 'default';
+    });
+
+    document.getElementById('fileInput').addEventListener('change', function (event) {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+
+      reader.onload = function (e) {
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(e.target.result, 'text/xml');
+        displayXML(xmlDoc);
+        displayXMLTree(xmlDoc.documentElement, document.getElementById('xmlTree'));
+      };
+
+      reader.readAsText(file);
+    });
+
+    function displayXML(xml) {
+      const xmlContent = new XMLSerializer().serializeToString(xml);
+      document.getElementById('xmlContent').textContent = formatXml(xmlContent);
+    }
+
+    function displayXMLTree(xmlNode, parentElement) {
+      const li = document.createElement('li');
+
+      let nodeId = xmlNode.getAttribute('id') || xmlNode.getAttribute('msoid') || ''; // 设置默认值为 'DefaultID'
+
+      if (nodeId) {
+        li.textContent = xmlNode.nodeName + " " + nodeId;
+      } else {
+        li.textContent = xmlNode.nodeName;
+      }
+
+      parentElement.appendChild(li);
+
+      if (xmlNode.childNodes.length > 0) {
+        const ul = document.createElement('ul');
+        li.appendChild(ul);
+
+        for (let i = 0; i < xmlNode.childNodes.length; i++) {
+          if (xmlNode.childNodes[i].nodeType === 1) { // Node.ELEMENT_NODE
+            displayXMLTree(xmlNode.childNodes[i], ul);
+          }
+        }
+      }
+
+      li.addEventListener('click', function (event) {
+        event.stopPropagation(); // 阻止事件冒泡
+        // highlightXMLNode(xmlNode.nodeName);
+
+        // console.log(xmlNode.Id);
+        let nodeId;
+
+        if (xmlNode.getAttribute('id')) {
+          nodeId = xmlNode.getAttribute('id'); // 获取 id 属性值
+        } else if (xmlNode.getAttribute('msoid')) {
+          nodeId = xmlNode.getAttribute('msoid'); // 获取 msoid 属性值
+        }
+        highlightXMLNode(nodeId);
+        console.log(nodeId);
+
+      });
+
+      li.addEventListener('mouseover', function (event) {
+        // event.stopPropagation(); // 阻止事件冒泡
+        // highlightXMLNode(li.getAttribute('data-node-id'));
+      });
+
+      li.addEventListener('mouseout', function () {
+        // removeHighlightXMLNode(li.getAttribute('data-node-id'));
+      });
+    }
+
+
+    function highlightXMLNode(nodeId) {
+      const xmlContent = document.getElementById('xmlContent');
+      const xmlText = xmlContent.textContent;
+
+      // 使用修饰符 i 忽略大小写
+      const regex = new RegExp(`<[^>]+(?:\\s+id=["']${nodeId}["'])`, 'gs');
+      xmlContent.innerHTML = xmlText.replace(regex, '<span class="highlight">$1$2$3</span>');
+    }
+
+    function removeHighlightXMLNode(nodeName) {
+      const xmlContent = document.getElementById('xmlContent');
+      const highlightedNodes = xmlContent.querySelectorAll('.highlight');
+      highlightedNodes.forEach(node => {
+        const spanParent = node.parentNode;
+        spanParent.replaceChild(document.createTextNode(node.innerHTML), node);
+        spanParent.normalize();
+      });
+    }
+
+    function formatXml(xml) {
+      const PADDING = ' '.repeat(2); // Set desired indent size here
+      const reg = /(>)(<)(\/*)/g;
+      let pad = 0;
+      xml = xml.replace(reg, '$1\r\n$2$3');
+      return xml.split('\r\n').map((node) => {
+        let indent = 0;
+        if (node.match(/.+<\/\w[^>]*>$/)) {
+          indent = 0;
+        } else if (node.match(/^<\/\w/)) {
+          if (pad != 0) {
+            pad -= 1;
+          }
+        } else if (node.match(/^<\w([^>]*[^\/])?>.*$/)) {
+          indent = 1;
+        } else {
+          indent = 0;
+        }
+
+        pad += indent;
+
+        return PADDING.repeat(pad - indent) + node;
+      }).join('\r\n');
+    }
+  </script>
+</body>
+
+</html>

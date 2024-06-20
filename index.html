@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Read Local XML File with Syntax Highlighting</title>
+  <!-- Prism.js CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="./css/reset.css" />
+  <link rel="stylesheet" href="./css/styles.css">
+  <link rel="stylesheet" href="./css/dark.css">
+</head>
+
+<body>
+
+  <div class="top-panel">
+    <div id="ribbon">
+      <div class="tab">
+        <div class="group" lable="1111">
+          <div class="button" data-image="_3DExtrusionDepthInfinityClassic">设计</div>
+          <div class="button" data-image="TextDirectionGallery">文稿</div>
+          <div class="button" data-image="CombineShapesGallery">分布</div>
+          <div class="button" data-image="ThemeColorsGallery">文本</div>
+        </div>
+        <div class="group">
+          <div class="button" data-image="SelectionPane">选择窗格</div>
+          <div class="button" data-image="AnimationCustom">其他</div>
+        </div>
+        <div class="group">
+          <div class="button">bt_NewPPT</div>
+          <div class="button">bt_ChangePreSize</div>
+          <div class="button">bt_SetTheme</div>
+          <div class="button">bt_ToPlaceholderBody</div>
+          <div class="button">bt_ToPlaceholderPicture</div>
+          <div class="button">bt_SyncToLayout</div>
+          <div class="button">bt_Deletelayout</div>
+          <div class="button">bt_DeleteAnimation</div>
+          <div class="button">bt_DeleteSlideBlank</div>
+          <div class="button">bt_DeleteNote</div>
+          <div class="button">bt_DeleteOutsideShape</div>
+          <div class="button">bt_DeleteShapeHide</div>
+          <div class="button">gp_Slide_Set</div>
+        </div>
+        <div class="group">
+          <div class="button">bt_LayersManage</div>
+          <div class="button"></div>
+          <div class="button">bt_ShiftSelect</div>
+          <div class="button">bt_ReverseSelect</div>
+          <div class="button">bt_SameType</div>
+          <div class="button">bt_SameFont</div>
+          <div class="button">bt_SameWidth</div>
+          <div class="button">bt_SameHeight</div>
+          <div class="button">bt_SameColor</div>
+          <div class="button">bt_AllLine</div>
+          <div class="button">bt_AllText</div>
+          <div class="button">bt_AllGroup</div>
+          <div class="button">bt_Group_Intimacy</div>
+          <div class="button">bt_UnGroup_Stype</div>
+          <div class="button">bt_UnGroup_Page</div>
+          <div class="button">bt_UnGroup_Select</div>
+          <div class="button">bt_ShapePosition_Up</div>
+          <div class="button">bt_ShapePosition_Down</div>
+          <div class="button">bt_Shape_Cooy</div>
+          <div class="button">bt_FullScreen</div>
+          <div class="button">bt_CropFull</div>
+          <div class="button">bt_ShapeTrim</div>
+          <div class="button">bt_Mask</div>
+          <div class="button">gp_Object_Set</div>
+        </div>
+        <div class="group">
+          <div class="button">bt_DistributedRectangle</div>
+          <div class="button">bt_DistributedRound</div>
+          <div class="button">bt_ShapeAuto</div>
+          <div class="button">bt_AlignCenterHorizontal</div>
+          <div class="button">bt_AlignTop</div>
+          <div class="button">bt_AlignMiddleVertical</div>
+          <div class="button">bt_AlignLeft</div>
+          <div class="button">bt_AlignCenter</div>
+          <div class="button">bt_AlignRight</div>
+          <div class="button">AlignDistributeHorizontally2</div>
+          <div class="button">bt_AlignBottom</div>
+          <div class="button">AlignDistributeVertically2</div>
+          <div class="button">ObjectFlipHorizontal2</div>
+          <div class="button"></div>
+          <div class="button">gp_Align_Set</div>
+        </div>
+        <div class="group">
+          <div class="button">bt_TextTypeChange</div>
+          <div class="button">bt_Paragrapher</div>
+          <div class="button">bt_TextBox</div>
+          <div class="button">bt_ReplaceText</div>
+          <div class="button">bt_BatchReName</div>
+          <div class="button">bt_ShapeTextOrder</div>
+          <div class="button">bt_TextDeleteSpace</div>
+          <div class="button">bt_TextDeleteBlankLine</div>
+          <div class="button">bt_TextDeleteTab</div>
+          <div class="button">bt_TextSelectWorkNewLine</div>
+          <div class="button">bt_TextAddNote</div>
+          <div class="button">bt_GetPPTNote</div>
+          <div class="button">bt_GetPPTText</div>
+          <div class="button">bt_LineSpacing</div>
+          <div class="button">bt_LineSpacing10</div>
+          <div class="button">bt_LineSpacing11</div>
+          <div class="button">bt_LineSpacing12</div>
+          <div class="button">bt_LineSpacing13</div>
+          <div class="button">bt_LineSpacing15</div>
+          <div class="button">bt_LineSpacing20</div>
+          <div class="button">bt_LineSpacing30</div>
+          <div class="button">bt_LineSpacing00</div>
+          <div class="button"></div>
+          <div class="button">bt_TextMargin</div>
+          <div class="button">bt_TextMarginDefult</div>
+          <div class="button"></div>
+          <div class="button">bt_IndentIncrease</div>
+          <div class="button">btTextOutline</div>
+          <div class="button">bt_ShapeEdit</div>
+          <div class="button">bt_TextOutline</div>
+          <div class="button">bt_TextRadical</div>
+          <div class="button">bt_TextInvert</div>
+          <div class="button">bt_CharacterOutline</div>
+          <div class="button">bt_TextSplitLines</div>
+          <div class="button">bt_TextSplitParagraph</div>
+          <div class="button">bt_TextSplitCharacter</div>
+          <div class="button">bt_TextMerge</div>
+          <div class="button">bt_TextSplitByDelimiter</div>
+          <div class="button">bt_WordWrap</div>
+          <div class="button">bt_ShapeSeparateText</div>
+          <div class="button">bt_ShapeSegmentation</div>
+          <div class="button">bt_ShapeInvert</div>
+          <div class="button">bt_ShapeFree</div>
+          <div class="button">bt_Attention2</div>
+          <div class="button">bt_LineVertical</div>
+          <div class="button">bt_Adjustments</div>
+          <div class="button">bt_ShapeThreeD_Mirror</div>
+          <div class="button">bt_ShapeConnect</div>
+          <div class="button">bt_SyncAllPoints</div>
+          <div class="button">bt_SyncSelectPoints</div>
+          <div class="button">bt_PasteSVG</div>
+          <div class="button">bt_AnimaBox</div>
+          <div class="button">bt_MorphName</div>
+          <div class="button">bt_RotationCenter</div>
+          <div class="button">bt_LayerToSlide</div>
+          <div class="button">bt_GroupcCircle</div>
+          <div class="button">bt_GroupAddShape</div>
+          <div class="button">bt_Ungroup</div>
+          <div class="button">bt_ReColor</div>
+          <div class="button">bt_HSL</div>
+          <div class="button">bt_GradientSolid</div>
+          <div class="button">bt_ColorRandom</div>
+          <div class="button">bt_ColorAdd</div>
+          <div class="button">bt_ColorClear</div>
+          <div class="button">bt_PicturePSEdit</div>
+          <div class="button">bt_PictureFillScreen</div>
+          <div class="button">bt_PictureReplace</div>
+          <div class="button">bt_ToPicture</div>
+          <div class="button">bt_PictureToShape</div>
+          <div class="button">bt_PictureFillCrop</div>
+          <div class="button">bt_PictureFitCrop</div>
+          <div class="button">bt_PictureFastFill</div>
+          <div class="button">bt_PictureBatchFill</div>
+          <div class="button">bt_PictureLink</div>
+          <div class="button">gp_Text_Set</div>
+        </div>
+        <div class="group">
+          <div class="button">bt_UniformAngle</div>
+          <div class="button">bt_UniformShapeFill</div>
+          <div class="button">bt_UniformFontName</div>
+          <div class="button">bt_Uniform_Shape_Round</div>
+          <div class="button">bt_PictureCustomCrop</div>
+          <div class="button">bt_Uniform4x3</div>
+          <div class="button">bt_Uniform16x9</div>
+          <div class="button">bt_Uniform9x16</div>
+          <div class="button">bt_Uniform1x1</div>
+          <div class="button">bt_UniformSize</div>
+          <div class="button">bt_UniformWidth</div>
+          <div class="button">bt_UniformHeight</div>
+          <div class="button">bt_SwapLocation</div>
+          <div class="button">bt_SwapText</div>
+          <div class="button">bt_UniformGroupStyle</div>
+          <div class="button">bt_SuperStyle</div>
+          <div class="button">bt_StyleSize</div>
+          <div class="button">bt_StylePosition</div>
+          <div class="button">bt_StyleSizeAndPosition</div>
+          <div class="button">bt_StyleAngle</div>
+          <div class="button">bt_CopyLayoutSpacing</div>
+          <div class="button">bt_StyleShape_Fill</div>
+          <div class="button">bt_StyleShape_Line</div>
+          <div class="button">bt_StyleShape_Shadow</div>
+          <div class="button">bt_StyleText_FontNameAndSize</div>
+          <div class="button">bt_StyleText_Paragraph</div>
+          <div class="button">bt_StyleText_ParagraphStyle</div>
+          <div class="button">bt_StylePaster</div>
+          <div class="button">gp_Style_Set</div>
+        </div>
+        <div class="group">
+          <div class="button">bt_LayerStamp</div>
+          <div class="button">bt_ExportPicture</div>
+          <div class="button">bt_ExportPDF</div>
+          <div class="button">bt_ExportFonts</div>
+          <div class="button">bt_pptOutLine</div>
+          <div class="button">bt_FontsNote</div>
+          <div class="button">bt_ExportSelectSlideMp4</div>
+        </div>
+        <div class="group">
+          <div class="button">bt_FieldOfView</div>
+          <div class="button">bt_BatchSlides</div>
+          <div class="button">bt_ThreeDLayer</div>
+          <div class="button">bt_TextVar</div>
+          <div class="button">gp_Typography_Set</div>
+        </div>
+        <div class="group">
+          <div class="button">bt_Used3</div>
+          <div class="button">bt_Used2</div>
+          <div class="button">bt_Used1</div>
+        </div>
+      </div>
+    </div>
+    <label for="fileInput">选择xml文件</label>
+    <input type="file" id="fileInput" accept=".xml">
+  </div>
+
+  <div class="container">
+
+    <div class="left-panel">
+      <pre id="output" class="language-xml"><code id="codeOutput"></code></pre>
+    </div>
+
+    <div class="right-panel">
+      <div id="treeContainer"></div>
+    </div>
+  </div>
+
+  <!-- Prism.js JavaScript -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <!-- Prism.js language plugin for XML -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-xml.min.js"></script>
+  <!-- Your custom scripts -->
+  <script src="js/script.js"></script>
+</body>
+
+</html>
