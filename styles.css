@@ -92,7 +92,6 @@ body {
   width: 100%;
   height: 30%;
   display: flex;
-  row-gap: 20px;
   flex-wrap: nowrap;
   position: relative;
   overflow: hidden;
@@ -153,11 +152,11 @@ pre {
 }
 
 #xmlTree{
+  height: 100%;
   flex: 1;
   overflow: auto;
   padding: 4px 0;
   position: relative;
-  /* width: 100%; */
 }
 
 
@@ -254,6 +253,7 @@ pre {
 
 
 .ribbonbar{
+  margin-top: 20px;
   width: 80%;
   display: flex;
   flex-direction: row;
@@ -268,7 +268,7 @@ pre {
   flex-wrap: nowrap;
   position:relative;
   background-color: #0A0A0A;
-  padding: 32px 8px 8px 8px;
+  padding: 3px 8px 8px 8px;
   height: 101px;
   /* border-bottom: 1px solid #666666; */
   overflow-x: auto;
@@ -283,8 +283,10 @@ pre {
 
 
 .tab {
+  visibility: hidden;
   position: absolute;
   height: 88px;
+  width: 100%;
   left: 4px;
   bottom: 3px;
   display: flex;
@@ -296,6 +298,10 @@ pre {
   padding-bottom: 6px;
   border-radius: 8px;
   background-color: #292929;
+}
+
+.tab.active {
+  visibility:visible;
 }
 
 .group {
@@ -322,7 +328,7 @@ pre {
 }
 
 .group::before {
-  content: attr(data-lable);
+  content: attr(data-label);
   position: absolute;
   left: 0;
   text-align: center;
@@ -334,6 +340,22 @@ pre {
 
 
 .group .button {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  font-family: "Microsoft YaHei";
+  font-size: 12px;
+  color: #fff;
+  padding-left: 20px;
+  /* overflow: hidden; */
+  position: relative;
+  flex-direction: row;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+
+.group .menu {
   display: flex;
   justify-content: flex-start;
   width: 100%;
@@ -379,7 +401,7 @@ pre {
 
 
 
-.group .button.large{
+.group .large{
   grid-row: 1 / span 3;
   display: flex;
   width: 42px;
@@ -392,7 +414,7 @@ pre {
   white-space:normal;
 }
 
-.button.large[data-image] {
+.large[data-image] {
   background-repeat: no-repeat;
   background-position-y:0;
   background-position-x:center;
@@ -431,4 +453,32 @@ input[type="file"] {
   color: white;
   border: none;
   border-radius: 4px;
+}
+
+
+#tabnav{
+  display: flex;
+  height: 24px;
+  width: 80%;
+}
+
+#tabnav ul {
+  display: flex;
+  text-align: center;
+}
+
+#tabnav ul li {
+  min-width: 45px;
+}
+
+#tabnav ul li.active {
+  border-bottom: 2px solid #E1966D;
+}
+
+#tabnav ul li.active:hover {
+  border-bottom: 2px solid #E1966D;
+}
+
+#tabnav ul li:hover {
+  border-bottom: 2px solid #666;
 }

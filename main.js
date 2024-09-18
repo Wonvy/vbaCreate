@@ -13,9 +13,42 @@ import {
 
 
 
+const tabnav = document.getElementById('tabnav');
+const ribbon = document.getElementById('ribbon');
 
-var labelsData = null;
-var imagesData = null;
+
+// 使用事件委托监听tabnav上的mouseover事件
+tabnav.addEventListener('mouseover', function (event) {
+  // 确保事件是<li>元素触发的
+  if (event.target.tagName === 'LI') {
+
+    const lis = tabnav.querySelectorAll('li');
+    lis.forEach(li => {
+      li.classList.remove('active');
+    });
+    event.target.classList.add('active');
+
+    const ribbonTabs = ribbon.querySelectorAll('.tab');
+    ribbonTabs.forEach(tab => {
+      tab.classList.remove('active');
+    });
+
+    // 获取当前悬停的li元素的data-uuid值
+    const uuid = event.target.getAttribute('data-uuid');
+
+    // 根据uuid查找并激活对应的ribbon标签页
+    const activeTab = ribbon.querySelector(`.tab[data-uuid="${uuid}"]`);
+    if (activeTab) {
+      activeTab.classList.add('active');
+    }
+  }
+});
+
+//
+
+let labelsData = null;
+let imagesData = null;
+let tabsData = null;
 
 async function fetchData(url) {
   try {
@@ -33,30 +66,37 @@ async function fetchData(url) {
 async function loadData() {
   try {
     // 并行加载标签数据和图像数据
-    const [labels, images] = await Promise.all([
+    const [labels, images, tabs] = await Promise.all([
       fetchData('/json/getLabel.json'),
-      fetchData('/json/getImage.json')
+      fetchData('/json/getImage.json'),
+      fetchData('/json/getTabs.json')
     ]);
+
 
     // 赋值给全局变量
     labelsData = labels;
     imagesData = images;
+    tabsData = tabs;
+
+
   } catch (error) {
     console.error('Failed to load data:', error);
     labelsData = null;
     imagesData = null;
+    tabsData = null;
   }
 }
 
 async function getDataById(controlId, type) {
   // 确保数据已加载
-  if (!labelsData || !imagesData) {
+  if (!labelsData || !imagesData || !tabsData) {
     await loadData();
   }
 
-  // 根据类型返回数据
   if (type === 'label') {
     if (labelsData) {
+      // console.log("controlId", controlId);
+      // console.log("controlId", labelsData[controlId]);
       return labelsData[controlId];
     } else {
       console.error('Labels data is not loaded yet.');
@@ -69,6 +109,13 @@ async function getDataById(controlId, type) {
       console.error('Images data is not loaded yet.');
       return null;
     }
+  } else if (type === 'tab') {
+    if (tabsData) {
+      return tabsData[controlId];
+    } else {
+      console.error('Images data is not loaded yet.');
+      return null;
+    }
   } else {
     console.error('Invalid type specified. Use "label" or "image".');
     return null;
@@ -77,7 +124,10 @@ async function getDataById(controlId, type) {
 
 
 
-loadData();
+loadData().then(() => {
+  console.log('Labels Data:', labelsData);
+  console.log('Images Data:', imagesData);
+});
 
 
 
@@ -227,11 +277,11 @@ document.getElementById('fileInput').addEventListener('change', function (event)
   const file = event.target.files[0];
   if (file) {
     const reader = new FileReader();
-    reader.onload = function (e) {
+    reader.onload = async function (e) {
       const parser = new DOMParser();
       const xmlDoc = parser.parseFromString(e.target.result, "text/xml");
       displayXML(xmlDoc);
-      buildRibbon(xmlDoc);
+      await buildRibbon(xmlDoc);
       createTreeFromXML(xmlDoc, document.getElementById('xmlTree'));
       // displayXMLTree(xmlDoc.documentElement, document.getElementById('xmlTree'));
     };
@@ -250,101 +300,350 @@ function displayXML(xml) {
 }
 
 
-function buildRibbon(xmlDoc) {
+
+async function buildRibbon(xmlDoc) {
   const ribbon = document.getElementById('ribbon');
-  let lable;
+  const tabnav = document.getElementById('tabnav');
+  let label;
   let image;
   let size;
 
-  ribbon.innerHTML = ''; // Clear existing content
+  // Clear existing content
+  ribbon.innerHTML = '';
+  tabnav.innerHTML = '';
 
   const tabs = xmlDoc.getElementsByTagName('tab');
-  Array.from(tabs).forEach(tab => {
-    const tabDiv = document.createElement('div');
-    tabDiv.classList.add('tab');
-    lable = tab.getAttribute('idMso');
+  const ul = document.createElement('ul');
 
+  for (const tab of tabs) {
+
+    //tab
+    const tabDiv = document.createElement('div');
+    const li = document.createElement('li');
+    const uuidv = uuid();
+    tabDiv.classList.add('tab');
+    tabDiv.classList.add('active');
+    label = tab.getAttribute('idMso');
+    if (label) {
+      label = await getDataById(label, "tab");
+    } else {
+      label = tab.getAttribute('label') || "";
+    }
+
+    tabDiv.setAttribute('data-label', label);
+    tabDiv.setAttribute('data-uuid', uuidv);
+    li.setAttribute('data-uuid', uuidv);
+    li.textContent = label;
+
+    //group
     const groups = tab.getElementsByTagName('group');
-    Array.from(groups).forEach(group => {
-      //add group
+    for (const group of groups) {
       const groupDiv = document.createElement('div');
       groupDiv.classList.add('group');
 
-      lable = group.getAttribute('getLabel');
-      if (lable !== null && lable !== undefined && lable !== '') {
-        lable = getDataById(lable, "label");
+      label = group.getAttribute('getLabel');
+      if (label) {
+        label = await getDataById(group.getAttribute('id'), "label");
       } else {
-        lable = group.getAttribute('label') || ""
+        label = group.getAttribute('label') || "";
       }
 
-      groupDiv.setAttribute('data-lable', lable);
+      groupDiv.setAttribute('data-label', label);
+
+      //groupchild
+      const children = group.children;
+      for (const child of children) {
+        buildMenu(child, groupDiv);
+      }
+      ul.appendChild(li);
+      tabDiv.appendChild(groupDiv);
+    }
+
+    tabnav.appendChild(ul);
+    ribbon.appendChild(tabDiv);
+    buildRibbonImage();
+  }
+}
+
+
+// 创建菜单项的通用函数
+function createMenuItem(xmlNode, parentElement) {
+  const dataId = xmlNode.getAttribute('id') || xmlNode.getAttribute('idMso') || "";
+  const dataLabel = xmlNode.getAttribute('label') || xmlNode.getAttribute('getLabel') || xmlNode.getAttribute('getTitle');
+  const dataImage = xmlNode.getAttribute('image') || xmlNode.getAttribute('imageMso');
+
+  console.log("xmlNode", xmlNode);
+  console.log("dataId", dataId);
+  console.log("dataLabel", dataLabel);
+  console.log("dataImage", dataImage);
+
+  let menuItem;
+  if (xmlNode.tagName === 'menu') {
+    menuItem = createSubMenu(xmlNode, parentElement);
+  } else if (xmlNode.tagName === 'button') {
+    menuItem = createButton(xmlNode, parentElement);
+  } else if (xmlNode.tagName === 'menuSeparator') {
+    menuItem = createMenuSeparator(xmlNode, parentElement);
+  }
+
+  console.log("menuItem", menuItem);
+  menuItem.setAttribute('data-id', dataId);
+  menuItem.setAttribute('data-label', dataLabel);
+  menuItem.setAttribute('data-image', dataImage);
+
+  return menuItem;
+}
+
+
+
+// 创建子菜单的函数
+function createSubMenu(xmlMenuNode, parentElement) {
+  const menuDiv = document.createElement('div');
+  menuDiv.classList.add('menu-submenu');
+
+  // 获取菜单的标签名和ID
+  const dataId = xmlMenuNode.getAttribute('id') || xmlMenuNode.getAttribute('idMso');
+  const dataLabel = xmlMenuNode.getAttribute('label') || xmlMenuNode.getAttribute('getLabel') || xmlMenuNode.getAttribute('getTitle');
+
+  // 创建菜单标题
+  const menuTitle = document.createElement('div');
+  menuTitle.classList.add('menu-title');
+  menuTitle.textContent = dataLabel;
+  menuDiv.appendChild(menuTitle);
+
+  // 创建菜单内容容器
+  const menuContent = document.createElement('div');
+  menuContent.classList.add('menu-content');
+  menuDiv.appendChild(menuContent);
+
+  // 递归地为子菜单中的每个子节点创建菜单项
+  for (let i = 0; i < xmlMenuNode.childNodes.length; i++) {
+    const childNode = xmlMenuNode.childNodes[i];
+    if (childNode.nodeType === 1) { // 确保是元素节点
+      createMenuItem(childNode, menuContent); // 递归调用 createMenuItem
+    }
+  }
+
+  // 将子菜单添加到父元素
+  parentElement.appendChild(menuDiv);
+}
+
+function createButton(xmlNode, parentElement) {
+
+  const button = document.createElement('button');
+  console.log("xmlNode1", xmlNode);
+  const buttonText = xmlNode.getAttribute('label') || xmlNode.getAttribute('id') || 'Button';
+  button.textContent = buttonText;
+  parentElement.appendChild(button);
+  return parentElement;
+}
+
+
+// 构建菜单的递归函数
+function buildMenu(xmlNode, parentElement) {
+  for (let i = 0; i < xmlNode.childNodes.length; i++) {
+    const childNode = xmlNode.childNodes[i];
+    if (childNode.nodeType === 1) {
+      const menuItem = createMenuItem(childNode, parentElement);  // 普通按钮
+      if (childNode.tagName === 'menu') {
+        buildMenu(childNode, menuItem.lastElementChild); // 递归构建子菜单
+      }
+    }
+  }
+}
+
+
+// 创建菜单分隔符的函数
+function createMenuSeparator(xmlNode, parentElement) {
+
+}
+
+async function buildRibbon_1(xmlDoc) {
+  const ribbon = document.getElementById('ribbon');
+  const tabnav = document.getElementById('tabnav');
+  let label;
+  let image;
+  let size;
+
+  // Clear existing content
+  ribbon.innerHTML = '';
+  tabnav.innerHTML = '';
+
+  const tabs = xmlDoc.getElementsByTagName('tab');
+  const ul = document.createElement('ul');
+
+  for (const tab of tabs) {
+    const tabDiv = document.createElement('div');
+    const li = document.createElement('li');
+    const uuidv = uuid();
+    tabDiv.classList.add('tab');
+    label = tab.getAttribute('idMso');
+    if (label) {
+      label = await getDataById(label, "tab");
+    } else {
+      label = tab.getAttribute('label') || "";
+    }
+
+    tabDiv.setAttribute('data-label', label);
+    tabDiv.setAttribute('data-uuid', uuidv);
+    li.setAttribute('data-uuid', uuidv);
+    li.textContent = label;
+
+    const groups = tab.getElementsByTagName('group');
+    for (const group of groups) {
+      // add group
+      const groupDiv = document.createElement('div');
+      groupDiv.classList.add('group');
+
+      label = group.getAttribute('getLabel');
+      if (label) {
+        label = await getDataById(group.getAttribute('id'), "label");
+      } else {
+        label = group.getAttribute('label') || "";
+      }
+
+      groupDiv.setAttribute('data-label', label);
 
       // add button
       const children = group.children;
-      Array.from(children).forEach(child => {
+      for (const child of children) {
         const buttonDiv = document.createElement('div');
 
-
-
-        //lable
-        lable = child.getAttribute("image", 'getLabel');
-        console.log(child)
-        if (lable !== null && lable !== undefined && lable !== '') {
-          lable = getDataById(child.getAttribute('id'), "image");
+        // label
+        label = child.getAttribute('getLabel');
+        if (label) {
+          label = await getDataById(child.getAttribute('id'), "label");
         } else {
-          lable = child.getAttribute('label') || child.getAttribute('idMso') || ""
+          label = child.getAttribute('label') || child.getAttribute('idMso') || "";
         }
 
-        //image
+        // image
         image = child.getAttribute('getImage');
-        console.log(child.getAttribute('getImage'));
-        console.log(image);
-        if (image !== null && image !== undefined && image !== '') {
-          image = getDataById(child.getAttribute('id'), "image");
+        if (image) {
+          image = await getDataById(child.getAttribute('id'), "image");
         } else {
-          image = child.getAttribute('imageMso') || child.getAttribute('image') || ""
+          image = child.getAttribute('imageMso') || child.getAttribute('image') || "";
         }
 
         buttonDiv.classList.add(child.tagName);
 
-        size = child.getAttribute('size')
-        if (size == "large") {
+        size = child.getAttribute('size');
+        if (size === "large") {
           buttonDiv.classList.add('large');
         }
-
-
-
-
 
         buttonDiv.setAttribute('data-image', image);
         buttonDiv.setAttribute('draggable', 'true');
         buttonDiv.setAttribute('data-uuid', uuid());
 
         // check
-        if (child.tagName == "checkBox") {
+        if (child.tagName === "checkBox") {
           const input = document.createElement('input');
-          const label = document.createElement('label');
+          const Elabel = document.createElement('label');
           input.type = "checkbox";
-          label.textContent = lable;
-          // input.id = "inputId";
-          // label.id = "labelId";
+          Elabel.textContent = label;
           buttonDiv.appendChild(input);
-          buttonDiv.appendChild(label);
+          buttonDiv.appendChild(Elabel);
         } else {
-          buttonDiv.textContent = lable;
+          buttonDiv.textContent = label;
+        }
+
+        if (child.tagName === "menu") {
+          createMenuElement(child, buttonDiv);
+        }
+
+        // check
+        if (child.tagName === "splitButton") {
+          const toggleButton = child.querySelector('toggleButton');
+
+          if (toggleButton) {
+            const splitButton_children = child.children;
+            for (const splitButton_child of splitButton_children) {
+              const div2 = document.createElement('div');
+              div2.classList.add(splitButton_child.tagName);
+              div2.setAttribute('data-label', splitButton_child.getAttribute('label'));
+              div2.setAttribute('data-uuid', uuid());
+              buttonDiv.appendChild(div2);
+
+            }
+          }
+          const menu = child.querySelector('toggleButton');
+          if (toggleButton) {
+
+
+          }
+
+
+
+
+        } else {
+
         }
 
         groupDiv.appendChild(buttonDiv);
-
-      });
-
+      }
+      ul.appendChild(li);
       tabDiv.appendChild(groupDiv);
-    });
+    }
 
+    tabnav.appendChild(ul);
     ribbon.appendChild(tabDiv);
-    buildRibbonImage()
-  });
+    buildRibbonImage();
+  }
 }
+
+
+function createMenuElement(xmlMenuNode, parentElement) {
+  let dataid;
+  let datalabel;
+  let dataimage;
+
+  // 遍历menu节点中的所有子节点
+  for (let i = 0; i < xmlMenuNode.childNodes.length; i++) {
+    const childNode = xmlMenuNode.childNodes[i];
+    if (childNode.nodeType === 1) { // 确保是元素节点
+      let childElement;
+
+      dataid = childNode.getAttribute('id') || childNode.getAttribute('idMso');
+      datalabel = childNode.getAttribute('label') || childNode.getAttribute('getLabel') || childNode.getAttribute('getTitle');
+      dataimage = childNode.getAttribute('image') || childNode.getAttribute('imageMso');
+
+
+
+      // 如果是子菜单，递归创建子菜单
+      if (childNode.tagName === 'menu') {
+        // 如果是子菜单，递归创建子菜单
+        childElement = document.createElement('ul');
+        const summary = document.createElement('li');
+        summary.textContent = childNode.getAttribute('label');
+
+        const size = childNode.getAttribute('size');
+        if (size === "large") {
+          childElement.classList.add('large');
+        }
+
+        childElement.appendChild(summary);
+        const contentDiv = document.createElement('div');
+        contentDiv.setAttribute('class', 'submenu-content');
+        childElement.appendChild(contentDiv);
+        createMenuElement(childNode, contentDiv); // 递归调用
+
+      } else if (childNode.tagName === 'button') {
+        childElement = document.createElement('button');
+        childElement.textContent = childNode.getAttribute('label');
+
+      } else if (childNode.tagName === 'menuSeparator') {
+        childElement = document.createElement('div');
+        childElement.classList.add('menuSeparator');
+      }
+
+      if (childElement) {
+        parentElement.appendChild(childElement);
+      }
+    }
+  }
+}
+
 
 
 

@@ -1,0 +1,739 @@
+<customUI xmlns="http://schemas.microsoft.com/office/2009/07/customui" onLoad="onLoad">
+    <ribbon startFromScratch="false">
+        <tabs>
+
+            <tab idMso="TabDesign">
+                <!-- <group idMso="GroupSlideThemes"> -->
+                <group idMso="GroupClipboard" >
+                    <gallery idMso="SlideThemesGallery"  visible="false" getSize="getSize" />
+                </group> 
+
+                <!-- <gallery idMso="SlideThemesGallery" getSize="getSize"/> -->
+
+                <group id="gp_Style_Font" insertBeforeMso="GroupSlideThemes" getLabel="getLabel" getImage="getImage"><!--字体样式--> 
+                    <button id="bt_Style_FontSize" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /> <!--字号-->
+                    <button id="bt_Style_FontName" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /> <!--字体-->
+                </group>
+
+                <group id="gp_Style_Title" insertBeforeMso="GroupSlideThemes" getLabel="getLabel" getImage="getImage"><!--标题样式--> 
+                    <button id="bt_Style_Title1" getLabel="getLabel" getImage="getImage" getSize="getSize" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /> <!--标题1-->
+                    <button id="bt_Style_Title2" getLabel="getLabel" getImage="getImage" getSize="getSize" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /> <!--标题2-->
+                    <button id="bt_Style_Title3" getLabel="getLabel" getImage="getImage" getSize="getSize" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /> <!--标题2-->
+                </group>
+                 <group id="gp_Style_Paragraph" insertBeforeMso="GroupSlideThemes" getLabel="getLabel" getImage="getImage"><!--段落样式-->
+                    <button id="bt_Style_Paragraph1" getLabel="getLabel" getImage="getImage" getSize="getSize" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /> <!--段落1-->
+                    <button id="bt_Style_Paragraph2" getLabel="getLabel" getImage="getImage" getSize="getSize" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /> <!--段落2-->
+                    <button id="bt_Style_Paragraph3" getLabel="getLabel" getImage="getImage" getSize="getSize" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /> <!--段落3-->
+                </group>
+            </tab>
+
+
+            <tab idMso="TabHome" >
+                <group id="gp_pptFont" getLabel="getLabel" insertBeforeMso="GroupFont" imageMso="AsianLayoutCharactersEnclose">
+
+
+                    <box id="box_FontSize" boxStyle="horizontal">
+                      <gallery id="gallery_font" 
+                          getLabel="getLabel"
+                          keytip="G" 
+                          imageMso="AsianLayoutCharactersEnclose" 
+                          getSize="getSize" 
+                          showItemLabel="true" 
+                          showItemImage="true" 
+                          columns="2" 
+                          onAction="gallery_onAction"
+                          getItemImage="getItemImage"
+                          getItemWidth="getItemWidth"
+                          getItemHeight="getItemHeight"
+                          getItemCount="getItemCount"
+                          getSelectedItemID="getSelectedItemID"
+                          getItemID="getItemID"
+                          getItemLabel="getItemLabel"
+                          getItemScreentip="getItemScreentip"
+                          getItemSupertip="getItemSupertip"
+                          supertip=" "
+                          screentip="已用字体"
+                        >
+                        <button id="bt_FontsUpadte" getLabel="getLabel" onAction="on_Action" imageMso="FontsReplaceFonts" />
+                      </gallery>
+
+
+                        <!-- <gallery idMso="TextDirectionGallery" showLabel="false"/> -->
+                    </box>
+
+
+                    <!-- 最近字体 vertical horizontal-->
+
+                    <!-- 最近字体 -->
+                    <box id="box_FontName1" boxStyle="horizontal">
+                      <button id="bt_ThemeFontMJ" label="主题：标题" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /><!--最近使用字体1-->
+                      <button id="bt_FontSizeIncrease" imageMso="FontSizeIncrease" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action" showLabel="false" /><!--增加字号-->
+                    </box>
+
+            
+
+                    <box id="box_FontName4" boxStyle="horizontal">
+                        <button id="bt_ThemeFontMn" label="主题：正文"  onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /><!--最近使用字体2-->
+                        <button id="bt_FontSizeDecrease" imageMso="FontSizeDecrease" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action" showLabel="false"/><!--减小字号-->
+                    </box>
+
+                    <button id="bt_UsedFontName1" getLabel="getLabel" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" />
+
+
+                    <dialogBoxLauncher>
+                        <button id="gp_pptFont_Set"  onAction="on_Action"/><!--设置-->
+                    </dialogBoxLauncher>    
+                </group>
+            </tab>
+
+            <!-- 简报 -->
+            <tab id="tab_xiaowan" label="简报"> <!--insertBeforeMso="TabDesign"-->
+            <!-- 关于-->
+                <group id="gp_About" getLabel="getLabel" getImage="getImage"><!--关于-->
+                    <menu id="mu_wonvy" image="bt_wonvy"  getLabel="getLabel" getSize="getSize"><!--小顽简报-->
+                        <menuSeparator id="msr_About_layout" getTitle="getTitle"/><!--界面布局-->
+                        <!-- <checkBox id="cbox_Big_House" getLabel="getLabel"  onAction="onAction"  getPressed="getPressed"  getScreentip="getScreentip"  getSupertip="getSupertip" getEnabled="getEnabled"/>大户人家 -->
+                        <!-- <checkBox id="cbox_Small_House" getLabel="getLabel"  onAction="onAction"  getPressed="getPressed"  getScreentip="getScreentip"  getSupertip="getSupertip" getEnabled="getEnabled"/>小户型 -->
+                        <!-- <menuSeparator id="msr_About_eggs" getTitle="getTitle"/> -->
+                        <!-- <menu id="mu_eggs" getImage="getImage" getLabel="getLabel">彩蛋 -->
+
+                            <!-- <checkBox id="cbox_Tab_tools" getLabel="getLabel"  onAction="onAction"  getPressed="getPressed"  getScreentip="getScreentip"  getSupertip="getSupertip" getEnabled="getEnabled"/>神器 -->
+                        <!-- </menu> -->
+                        <!-- <menuSeparator id="msr_About_Update" getTitle="getTitle"/>关于 -->
+                        <button id="bt_settings" getLabel="getLabel"  getImage="getImage" onAction="on_Action" /><!--选项设置-->
+                        <button id="bt_update" getLabel="getLabel"  getImage="getImage" onAction="on_Action" /><!--查看更新-->
+                        <button id="bt_updatebug" getLabel="getLabel"  getImage="getImage" onAction="on_Action" /><!--提交需求反馈bug-->
+                        <!-- <button id="bt_openlog" getLabel="getLabel"  getImage="getImage" onAction="on_Action" />查看日志 -->
+                    </menu>
+                    <dialogBoxLauncher>
+                        <button id="gp_About_Set"  onAction="on_Action" /><!--设置-->
+                    </dialogBoxLauncher>
+
+                </group>
+
+                <!-- 视图 -->
+                <group id="gp_View" getLabel="getLabel" getImage="getImage"><!-- 视图 -->
+                    <checkBox id="cbox_PageHeight" getLabel="getLabel" onAction="onAction" getScreentip="getScreentip"  getSupertip="getSupertip" getPressed="getPressed" /><!--页面撑高-->
+                    <checkBox idMso="GuidesShowHide" /><!-- 标尺 -->
+                    <button id="bt_ShapeZoom" getLabel="getLabel"   getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action" /><!--智能缩放-->
+                    <dialogBoxLauncher>
+                        <button id="gp_View_Set"  onAction="on_Action"/><!--设置-->
+                    </dialogBoxLauncher> 
+                </group>
+
+                <!-- 幻灯片-->    
+                <group id="gp_Slide" getLabel="getLabel" getImage="getImage" > <!--幻灯片-->
+
+                 
+                    <menu id="mu_Presentation" getImage="getImage" getLabel="getLabel" size="large"><!---->
+                        
+                        <button id="bt_NewPPT" getLabel="getLabel" onAction="on_Action" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip"/> <!--新建幻灯片-->
+                        <button id="bt_ChangePreSize" getLabel="getLabel" onAction="on_Action" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip"/> <!--画布大小-->
+                        
+                        <button id="bt_SetTheme" getLabel="getLabel" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action"/><!--设置主题-->
+                        <!-- <button id="bt_SetGuide" getLabel="getLabel" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action"/>参考线 -->
+
+
+                        <menuSeparator id="msr_customLayout" getTitle="getTitle"/><!--幻灯片母版-->
+                        <button id="bt_ToPlaceholderBody" getLabel="getLabel" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action"/><!--转文本占位符-->
+                        <button id="bt_ToPlaceholderPicture" getLabel="getLabel" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action"/><!--转图片占位符-->
+                        <button id="bt_SyncToLayout" getLabel="getLabel" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action"/><!--同步到版式-->
+                        <button id="bt_Deletelayout" getLabel="getLabel" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action"/><!--删除无用版式-->
+
+                        <menuSeparator id="msr_SlideDel" getTitle="getTitle"/><!--删除-->
+                        <button id="bt_DeleteAnimation" getLabel="getLabel" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action"/><!--删除动画-->
+                        <button id="bt_DeleteSlideBlank" getLabel="getLabel" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action"/><!--删除空白幻灯片-->
+                        <button id="bt_DeleteNote" getLabel="getLabel" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action"/><!--删除备注-->
+                        <button id="bt_DeleteOutsideShape" getLabel="getLabel" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action"/><!--删除所选页-画外图形-->
+                        <button id="bt_DeleteShapeHide" getLabel="getLabel" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action"/><!--删除隐藏图层-->
+                    
+                    </menu>
+
+                    <gallery idMso="ThemeColorsGallery" />
+                    <gallery idMso="ThemeFontsGallery" />
+                    <gallery idMso="SlideLayoutGallery" />
+
+
+                    <dialogBoxLauncher>
+                        <button id="gp_Slide_Set"  onAction="on_Action"/><!--设置-->
+                    </dialogBoxLauncher>    
+
+                </group> 
+                 <!-- 对象 -->
+                <group id="gp_Object" getLabel="getLabel" getImage="getImage">
+                    <splitButton id="sbt_Select" size="large">
+                        <toggleButton idMso="SelectionPane"  label="筛选"/>
+                        <menu id="mu_Shape" getImage="getImage" getLabel="getLabel"><!---->
+                            <toggleButton idMso="AnimationCustom" /><!--动画窗格-->
+                            <!-- <checkBox id="cbox_ShowNameText" getLabel="getLabel"  onAction="onAction"  getPressed="getPressed"  getEnabled="getEnabled"/> -->
+                            <button id="bt_LayersManage" getLabel="getLabel" onAction="on_Action" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip"/><!--图层管理-->
+                            <menuSeparator id="msr_Select" title="批量选择"/><!--分割线-->       
+                            <button idMso="SelectAll"/><!--全选-->
+                            <button id="bt_ShiftSelect" getLabel="getLabel" onAction="on_Action" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip"/><!--连选-->
+                            <button id="bt_ReverseSelect" getLabel="getLabel" onAction="on_Action" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip"/><!--反选-->
+                            <!-- <button id="bt_ShowOnly" getLabel="getLabel" getImage="getImage" onAction="on_Action"  getEnabled="getEnabled"/>独显 -->
+                            <menuSeparator id="msr_Type" title="相似选择"/><!--按属性-->                     
+                            <button id="bt_SameType" getLabel="getLabel" onAction="on_Action" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip" /><!--相同类型-->
+                            <button id="bt_SameFont" getLabel="getLabel" onAction="on_Action" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip"/><!--同号字体-->
+                            <button id="bt_SameWidth" getLabel="getLabel" onAction="on_Action" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip"/><!--相同图形宽度-->
+                            <button id="bt_SameHeight" getLabel="getLabel" onAction="on_Action" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip"/><!--相同高度-->
+                            <button id="bt_SameColor" getLabel="getLabel" onAction="on_Action" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip"/><!--相同颜色-->
+                            <!-- <button id="bt_SameLineWidth" getLabel="getLabel" onAction="on_Action" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip"/>线条宽度 -->
+                            <menuSeparator id="mst_All" title="指定类型"/><!--指定类型-->
+                            <button id="bt_AllLine" getLabel="getLabel" onAction="on_Action" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip"/> <!--所有线条-->
+                            <button id="bt_AllText" getLabel="getLabel" onAction="on_Action" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip"/><!--所有文字-->
+                            <button id="bt_AllGroup" getLabel="getLabel" onAction="on_Action" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip"/><!--所有组合元素-->
+                        </menu>
+                    </splitButton>
+                    <menu id="mu_Group" getLabel="getLabel" getImage="getImage" getScreentip="getScreentip"  > <!--组合-->
+                        <button id="bt_Group_Intimacy" getLabel="getLabel" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action"/><!--亲密性组合-->
+                        <!-- <button id="bt_Group_Stype" getLabel="getLabel" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action"/>组合保留样式 -->
+                        <button id="bt_UnGroup_Stype" getLabel="getLabel" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action"/><!--取消组合保留样式-->
+                        <menuSeparator id="mst_UnGroup" getTitle="getTitle"/><!--说散就散-->
+                        <button id="bt_UnGroup_Page" getLabel="getLabel" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action"/><!--解散页面组合-->
+                        <button id="bt_UnGroup_Select" getLabel="getLabel" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action"/><!--解散选定组合-->
+                    </menu>
+                    <button id="bt_ShapePosition_Up" getLabel="getLabel" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action" /><!--上层-->
+                    <button id="bt_ShapePosition_Down" getLabel="getLabel" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action" /><!--下层-->
+
+                    <button id="bt_Shape_Cooy" getLabel="getLabel" getImage="getImage" getSize="getSize"  getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action"/> <!--原位复制-->
+                    <button id="bt_FullScreen" getLabel="getLabel" getImage="getImage" getSize="getSize" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action"/> <!--填充画面-->
+                    <button id="bt_CropFull" getLabel="getLabel" getImage="getImage" getSize="getSize"  getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action"/> <!--全屏裁剪-->
+                    <button id="bt_ShapeTrim" getLabel="getLabel" getImage="getImage" getSize="getSize"  getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action" /> <!--修边-->
+                    <button id="bt_Mask" getLabel="getLabel" getImage="getImage" getSize="getSize"  getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action"/> <!-- 遮罩 -->
+
+                    <gallery idMso="CombineShapesGallery" label="布尔" />
+                    
+
+                    
+                    <dialogBoxLauncher>
+                        <button id="gp_Object_Set"  onAction="on_Action"/><!--设置-->
+                    </dialogBoxLauncher> 
+                </group>
+
+                <!-- 对齐与分布 -->
+                <group id="gp_Align"  getLabel="getLabel" getImage="getImage">
+
+                    <menu id="mu_Matrix" getImage="getImage"  getLabel="getLabel" getShowLabel="getShowLabel"  size="large" >
+                        <button id="bt_DistributedRectangle" getLabel="getLabel" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action" /><!--矩阵分布-->
+                        <button id="bt_DistributedRound" getLabel="getLabel" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action"/><!--环形分布-->
+                        <button id="bt_ShapeAuto" getLabel="getLabel" image="bt_ShapeAuto" onAction="on_Action"  getScreentip="getScreentip"  getSupertip="getSupertip"  /><!--混合工具-->
+                    </menu>
+
+                    <box id="bxo_Align1" boxStyle="horizontal">
+                        <button id="bt_AlignCenterHorizontal" getLabel="getLabel" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action" showLabel="false"/> <!--水平居中-->
+                        <button id="bt_AlignTop" getLabel="getLabel" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action" showLabel="false"/> <!--顶对齐-->
+                        <button id="bt_AlignMiddleVertical" getLabel="getLabel" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action" showLabel="false"/> <!--垂直居中-->
+                    </box> 
+                    <box id="box-Align2" boxStyle="horizontal">
+                        <button id="bt_AlignLeft" getLabel="getLabel" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action" showLabel="false"/> <!--左对齐-->
+                        <button id="bt_AlignCenter" getLabel="getLabel" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action" showLabel="false"/><!--页面居中-->
+                        <button id="bt_AlignRight" getLabel="getLabel" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action" showLabel="false"/>  <!--右对齐-->
+                    </box>
+                    <box id="box-Align3" boxStyle="horizontal">
+                            <button id="AlignDistributeHorizontally2" imageMso="AlignDistributeHorizontally" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action" showLabel="false"/>
+                            <button id="bt_AlignBottom" getLabel="getLabel" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action" showLabel="false" /><!--底对齐-->
+                            <button id="AlignDistributeVertically2" imageMso="AlignDistributeVertically" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action" showLabel="false"/>
+                                <!-- <button idMso="AlignDistributeHorizontally"  showLabel="false" />垂直分布 -->
+                                <!-- <button idMso="AlignDistributeVertically" showLabel="false" />水平分布 -->
+                    </box>
+                    <separator id="spr_Align" />
+
+                        <!-- 翻转 -->
+                        <box id="box-Align5" boxStyle="vertical"> 
+                            <button id="ObjectFlipHorizontal2" imageMso="ObjectFlipHorizontal" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action" showLabel="false"/>
+                            <!-- <button id="ObjectFlipVertical2" imageMso="ObjectFlipVertical" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action" showLabel="false"/> -->
+                            <!-- <button idMso="ObjectFlipHorizontal" showLabel="false" />  -->
+                            <button idMso="ObjectFlipVertical" showLabel="false" />
+                            <!-- <gallery idMso="CombineShapesGallery" showLabel="false" /> -->
+                        </box>
+
+                        <!-- 贴边 -->
+                        <!-- <box id="box-Align52" boxStyle="vertical">  -->
+                            <!-- <button id="bt_AlignLineHorizontal" getLabel="getLabel" image="bt_SwapLocation" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action" showLabel="false"/>水平贴边 -->
+                            <!-- <button id="bt_AlignLineVertical" getLabel="getLabel" image="bt_SwapLocation" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action"  showLabel="false"/>垂直贴边   -->
+                        <!-- </box> -->
+
+                        <!-- 拉伸 -->
+                        <!-- <box id="box-Align6" boxStyle="horizontal"> -->
+                            <!-- <button id="bt_StretchLeft" getLabel="getLabel" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action" showLabel="false"/> 向左延伸 -->
+                            <!-- <button id="bt_StretchRight" getLabel="getLabel" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action" showLabel="false"/>  向右延伸 -->
+                        <!-- </box> -->
+                        <!-- <box id="box-Align7" boxStyle="horizontal">  -->
+                            <!-- <button id="bt_StretchUp" getLabel="getLabel"  getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action"  showLabel="false"/> 向上延伸 -->
+                            <!-- <button id="bt_StretchDown" getLabel="getLabel" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action"  showLabel="false"/> 向下延伸 -->
+                        <!-- </box> -->
+
+
+
+                        <!-- <menu id="mu_CombineShapes" getImage="getImage" getLabel="getLabel">布尔 -->
+                            <!-- <gallery idMso="CombineShapesGallery" label="布尔" />合并形状 -->
+                            <!-- <menuSeparator id="msr_CombineShapes" getTitle="getTitle"/>批量布尔 -->
+                            <!-- <button id="bt_ShapesUnion" getLabel="getLabel" imageMso="ShapesUnion" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action" showLabel="false" />结合形状 -->
+                            <!-- <button id="bt_ShapesCombine" getLabel="getLabel" imageMso="ShapesCombine" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action" showLabel="false" />组合形状 -->
+                            <!-- <button id="bt_ShapesFragment" getLabel="getLabel" imageMso="ShapesFragment" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action" showLabel="false" />拆分形状 -->
+                            <!-- <button id="bt_ShapesIntersect" getLabel="getLabel" imageMso="ShapesIntersect" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action" showLabel="false" />相交形状 -->
+                            <!-- <button id="bt_ShapesSubtract" getLabel="getLabel" imageMso="ShapesSubtract" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action" showLabel="false" />减除形状 -->
+                        <!-- </menu> -->
+
+                        <!-- <menu id="mu_PositionMode" getImage="getImage" getLabel="getLabel">模式 -->
+                            <!-- <checkBox id="cbox_Offset" getLabel="getLabel"  onAction="onAction"  getPressed="getPressed"  getScreentip="getScreentip"  getSupertip="getSupertip" getEnabled="getEnabled"/>偏移模式    -->
+                            <!-- <checkBox id="cbox_Stretch" getLabel="getLabel"  onAction="onAction"  getPressed="getPressed"  getScreentip="getScreentip"  getSupertip="getSupertip" getEnabled="getEnabled"/>延伸模式 -->
+                        <!-- </menu> -->
+
+                        <!-- <button id="bt_OffsetUnit" getLabel="getLabel" getImage="getImage" getVisible="getVisible" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action"/>偏移单位 -->
+                         
+
+                    <dialogBoxLauncher>
+                        <button id="gp_Align_Set"  getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action"/><!--设置-->
+                    </dialogBoxLauncher> 
+                </group> 
+ 
+                <!--文字-->
+                <group id="gp_Text" getLabel="getLabel"  getImage="getImage">
+                    <menu id="mu_TextMore" getLabel="getLabel" getImage="getImage" size="large"> <!--文字功能-->
+                        <button id="bt_TextTypeChange" getLabel="getLabel" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action"/><!--重置文本框-->
+                        <button id="bt_Paragrapher" getLabel="getLabel" getImage="getImage" onAction="on_Action"  getScreentip="getScreentip"  getSupertip="getSupertip" /><!--段落管家-->
+                        <button id="bt_TextBox" getLabel="getLabel" getImage="getImage" onAction="on_Action"  getScreentip="getScreentip"  getSupertip="getSupertip" /><!--文本抽屉-->
+                        <!-- <button id="bt_Fonter" getLabel="getLabel" getImage="getImage" onAction="on_Action"  getScreentip="getScreentip"  getSupertip="getSupertip" />字体保安 -->
+                        <!-- <button id="bt_Textbox_En" getLabel="getLabel" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action"/>英文修饰 -->
+                        <!-- <menuSeparator id="msr_Text_Format" getTitle="getTitle"/>格式 -->
+                        <menuSeparator id="msr_Text_String" title="内容"/><!--内容-->
+                        <button id="bt_ReplaceText" getLabel="getLabel" getImage="getImage"  getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action" getShowLabel="getShowLabel"/><!--替换文本-->
+                        <button id="bt_BatchReName" getLabel="getLabel" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action" getShowLabel="getShowLabel"/><!--批量修改文字-->
+                        <button id="bt_ShapeTextOrder" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /><!--顺序编号-->
+
+                        <menuSeparator id="msr_Text_Del" title="删除"/><!--内容-->
+                        <button id="bt_TextDeleteSpace" getLabel="getLabel" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action"/><!--删除空格-->
+                        <button id="bt_TextDeleteBlankLine" getLabel="getLabel" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action"/><!--除空行-->
+                        <button id="bt_TextDeleteTab" getLabel="getLabel" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action"/><!--删除制表符-->
+                        <button id="bt_TextSelectWorkNewLine" getLabel="getLabel" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action"/><!--选定符号换行!-->
+                        
+                        
+                        <menuSeparator id="msr_Text_Note" title='其他'/><!--备注-->
+                        <button id="bt_TextAddNote" getLabel="getLabel" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action"/><!--添加至备注-->
+                        <button id="bt_GetPPTNote" getLabel="getLabel" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action"/><!--提取备注-->
+                        <button id="bt_GetPPTText" getLabel="getLabel" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action"/><!--提取所有文字-->
+                     
+                    </menu>
+
+
+                    <splitButton id="sbt_LineSpacing"  >
+                        <button id="bt_LineSpacing" getLabel="getLabel" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action"/><!--行距-->
+                        <menu id="mu_LineSpacing" getShowLabel="getShowLabel">
+                            <button id="bt_LineSpacing10" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" />
+                            <button id="bt_LineSpacing11" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" />
+                            <button id="bt_LineSpacing12" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" />
+                            <button id="bt_LineSpacing13" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" />
+                            <button id="bt_LineSpacing15" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" />
+                            <button id="bt_LineSpacing20" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" />
+                            <button id="bt_LineSpacing30" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" />
+                            <button id="bt_LineSpacing00" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" />
+                            <button idMso="PowerPointParagraphDialog" label="行距选项" />
+                        </menu>
+                    </splitButton>    
+                    <splitButton id="sbt_TextMargin"  >
+                        <button id="bt_TextMargin" getLabel="getLabel" getImage="getImage" onAction="on_Action" /><!--边距-->
+                        <menu id="mu_TextMargin" getShowLabel="getShowLabel">
+                            <button id="bt_TextMarginDefult" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /> <!--默认边距-->
+                            <button idMso="TextAlignMoreOptionsDialog" image="q" label="边距设置" />
+                        </menu>
+                    </splitButton> 
+                    <button id="bt_IndentIncrease" getLabel="getLabel" getImage="getImage" onAction="on_Action" getShowLabel="getShowLabel" getScreentip="getScreentip"  getSupertip="getSupertip" /> <!--首行缩进-->
+       
+
+                    <splitButton id="sbt_TextOutline"  >
+                        <button id="btTextOutline" getLabel="getLabel" getImage="getImage" onAction="on_Action" keytip="V" /><!--文字矢量-->
+                        <menu id="mu_TextOutline" getLabel="getLabel" getImage="getImage" getShowLabel="getShowLabel">
+                            <button id="bt_ShapeEdit" getLabel="getLabel" getImage="getImage" onAction="on_Action"/><!--还原文字-->
+                            <button id="bt_TextOutline" getLabel="getLabel" getImage="getImage" onAction="on_Action"/><!--文字矢量-->
+                            <button id="bt_TextRadical" getLabel="getLabel" getImage="getImage" onAction="on_Action"/><!--拆成部首--> 
+                            <button id="bt_TextInvert" getLabel="getLabel" getImage="getImage" onAction="on_Action"/><!--反相--> 
+                            <button id="bt_CharacterOutline" getLabel="getLabel" getImage="getImage" onAction="on_Action"/><!--保留颜色-->
+                        </menu>
+
+                    </splitButton> 
+                 
+                    <menu id="mu_TextSplit_Lines" getLabel="getLabel" getImage="getImage" getShowLabel="getShowLabel">
+                        <button id="bt_TextSplitLines" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /><!--拆成多行-->
+                        <button id="bt_TextSplitParagraph" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /><!--拆成多段-->
+                        <button id="bt_TextSplitCharacter" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /><!--拆成单字-->
+                        <button id="bt_TextMerge" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /><!--合并文字-->
+                        <button id="bt_TextSplitByDelimiter" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /><!--按符号拆分-->
+                    </menu>
+                    
+                    <button id="bt_WordWrap" getLabel="getLabel" getImage="getImage" onAction="on_Action" getShowLabel="getShowLabel"  getScreentip="getScreentip"  getSupertip="getSupertip" /><!--自动换行-->
+
+                    <separator id="spr_mu_ShapeMore" />
+
+                    <!--形状-->
+                    <menu id="mu_ShapeMore" getLabel="getLabel" getImage="getImage" size="large"> <!--形状相关-->
+                        <button id="bt_ShapeSeparateText" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /><!--分离文字--> 
+                        <gallery idMso="ShapeChangeShapeGallery" label="更改形状"/><!--更改形状-->
+                        <button id="bt_ShapeSegmentation" getLabel="getLabel" getImage="getImage" onAction="on_Action"  getScreentip="getScreentip"  getSupertip="getSupertip" /><!--等分图形-->
+                        <button id="bt_ShapeInvert" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /><!--反相--> 
+                        
+                        <menuSeparator id="msr_Shape_Nodes" title="顶点"/><!--顶点-->
+                        <button id="bt_ShapeFree" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /><!--自由形状--> 
+                        <button id="bt_Attention2" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /> <!--顶点立正-->
+                        <button id="bt_LineVertical" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /> <!--拉直-->
+                        <button id="bt_Adjustments" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /> <!--控点工具-->   
+                        <menuSeparator id="msr_Shape_ThreeD" title="三维格式"/><!--三维格式-->
+                        <button id="bt_ShapeThreeD_Mirror" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /> <!--三维镜像-->
+                        <menuSeparator id="msr_Shape_Other" title="其他"/><!--顶点-->
+                        <button id="bt_ShapeConnect" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /> <!--连线-->
+                       
+                    </menu>
+
+                    
+                    <checkBox id="cbox_ShowPoints" getLabel="getLabel" getPressed="getPressed" onAction="onAction"  getScreentip="getScreentip"  getSupertip="getSupertip" /> <!--显示顶点-->
+                    
+                    <splitButton id="sbt_TextOutline111"  >
+                        <button id="bt_SyncAllPoints" getLabel="getLabel" getImage="getImage" onAction="on_Action" getShowLabel="getShowLabel"/><!--同步所有顶点-->
+                        <menu id="mu_TextOutline111" getLabel="getLabel" getImage="getImage" getShowLabel="getShowLabel">
+                            <button id="bt_SyncSelectPoints" getLabel="getLabel" getImage="getImage" onAction="on_Action" getShowLabel="getShowLabel" getScreentip="getScreentip"  getSupertip="getSupertip" /> <!--同步选定顶点-->
+                        </menu>
+                    </splitButton> 
+                    <button id="bt_PasteSVG" getLabel="getLabel" image="iconfont" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /><!--粘贴为SVG图标-->
+
+                    <!--动画-->
+                    <menu id="mu_Animation" getLabel="getLabel" getImage="getImage" getSize="getSize" > <!--动画-->
+                        <button id="bt_AnimaBox" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip"/>  <!--动画盒-->
+                        <button id="bt_MorphName" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" />  <!--平滑点名-->
+                        <button id="bt_RotationCenter" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" />  <!--旋转中心-->
+                        <button id="bt_LayerToSlide" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" />  <!--动画分解-->
+                        <menuSeparator id="msr_AnimationGroup" getTitle="getTitle"/><!--动画组合-->
+                        <button id="bt_GroupcCircle" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" />  <!--圆心组合-->
+                        <button id="bt_GroupAddShape" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" />  <!--组合内添加形状-->
+                        <button id="bt_Ungroup" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" />  <!--取消组合保留动画-->
+                    </menu>
+
+                    <!-- 颜色-->    
+                    <menu id="mu_Color" getLabel="getLabel" getImage="getImage" getSize="getSize"><!--hsl 色彩-->
+                        <menuSeparator id="msr_ColorAdjustment" getTitle="getTitle"/><!--色彩调整-->
+                        <button id="bt_ReColor" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /><!--替换颜色-->
+                        <button id="bt_HSL" getLabel="getLabel" image="bt_HSL" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /><!--hsl 色相饱和度-->
+                        <button id="bt_GradientSolid" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /><!--渐变色块-->
+                        <button id="bt_ColorRandom" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /><!--随机颜色-->
+                        <menuSeparator id="msr_ColorUsed" getTitle="getTitle"/><!--最近颜色-->
+                        <button id="bt_ColorAdd" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /><!--添加到最近颜色-->
+                        <button id="bt_ColorClear" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /><!--清除最近颜色-->
+                    </menu>
+
+
+                    <!--图片-->
+                    <menu id="mu_PictureMore" getLabel="getLabel" getImage="getImage" keytip="P"> <!--图片相关-->
+                        <menuSeparator id="msr_PictureEdit" title="图片处理"/><!-- PS编辑 -->
+                        <!-- <button id="bt_PSTool" getLabel="getLabel" image="photoshop" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /> PS助手 -->
+                        <button id="bt_PicturePSEdit" getLabel="getLabel" image="photoshop" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /> 
+                        <button id="bt_PictureFillScreen" getLabel="getLabel" getImage="getImage" onAction="on_Action"  getScreentip="getScreentip"  getSupertip="getSupertip" /> <!--图片补全-->
+                        <button id="bt_PictureReplace" getLabel="getLabel" getImage="getImage" onAction="on_Action"  getScreentip="getScreentip"  getSupertip="getSupertip"  /> <!--替换图片-->
+                        <button id="bt_ToPicture" getLabel="getLabel" getImage="getImage" onAction="on_Action"  getScreentip="getScreentip"  getSupertip="getSupertip" /> <!--原位转图-->
+                        
+                        <button id="bt_PictureToShape" getLabel="getLabel" getImage="getImage" onAction="on_Action"  getScreentip="getScreentip"  getSupertip="getSupertip" /> <!--图转形状-->
+                        <!-- <button id="bt_Random_Picture" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /> 随机图片 -->
+                        
+                        <menuSeparator id="msr_PictureFill" title="图片填充"/><!-- 图片填充 -->
+                        <button id="bt_PictureFillCrop" getLabel="getLabel" getImage="getImage" onAction="on_Action"/><!--统一填充-->
+                        <button id="bt_PictureFitCrop" getLabel="getLabel" getImage="getImage" onAction="on_Action"/><!--统一适合-->
+                        <button id="bt_PictureFastFill" getLabel="getLabel" getImage="getImage" onAction="on_Action" keytip="Q"  getScreentip="getScreentip"  getSupertip="getSupertip" /><!--快速填充--> 
+                        <button id="bt_PictureBatchFill" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /><!--批量填充图片--> 
+                        <button id="bt_PictureLink" getLabel="getLabel" getImage="getImage" onAction="on_Action"  getScreentip="getScreentip"  getSupertip="getSupertip" /><!--图片链接-->
+                        
+                        <!-- <menuSeparator id="msr_PictureMorePS" getTitle="getTitle"/>PS编辑 -->
+                        
+                        <!-- <button id="bt_PicturePSUpdate" getLabel="getLabel" image="photoshop" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /> 更新图片 -->
+                        <!-- <button id="bt_BackgroundPSEdit" getLabel="getLabel" image="photoshop" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /> 编辑幻灯片背景 -->
+                        <!-- <button id="bt_BackgroundPSUpdate" getLabel="getLabel" image="photoshop" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /> 替换幻灯片背景 -->
+                    </menu>
+
+                 
+
+
+                    <dialogBoxLauncher>
+                        <button id="gp_Text_Set"  onAction="on_Action"/><!--设置-->
+                    </dialogBoxLauncher> 
+                </group>
+
+
+                <!--样式-->
+                <group id="gp_Style" getLabel="getLabel" getImage="getImage" getVisible="getVisible">
+                   
+                    <menu id="mu_Uniform" getLabel="getLabel" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip" getSize="getSize"><!-- 统一 -->
+                        
+                        <button id="bt_UniformAngle" getLabel="getLabel" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action"/><!--统一角度-->
+                        <button id="bt_UniformShapeFill" getLabel="getLabel" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip"  onAction="on_Action"/><!--填充/渐变-->
+                        <button id="bt_UniformFontName" getLabel="getLabel" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip"  onAction="on_Action"/><!--统一字体/字号-->
+
+                        <button id="bt_Uniform_Shape_Round" getLabel="getLabel" getImage="getImage" onAction="on_Action"/><!--圆角大小-->
+                        <!-- <menu id="mu_UniformPicture" getLabel="getLabel" getImage="getImage" >图片 -->
+                        <button id="bt_PictureCustomCrop" getLabel="getLabel" getImage="getImage" onAction="on_Action"/><!--统一裁剪-->
+                        <!-- </menu> -->
+                        <menu id="mu_UniformScale" getLabel="getLabel" getImage="getImage" ><!--比例-->
+                            <button id="bt_Uniform4x3" getLabel="getLabel" getImage="getImage" onAction="on_Action"/><!--4:3 -->
+                            <button id="bt_Uniform16x9" getLabel="getLabel" getImage="getImage" onAction="on_Action"/><!--16:9-->
+                            <button id="bt_Uniform9x16" getLabel="getLabel" getImage="getImage" onAction="on_Action"/><!--9:16-->
+                            <button id="bt_Uniform1x1" getLabel="getLabel" getImage="getImage" onAction="on_Action"/><!--1:1 -->
+                        </menu>
+            
+                        
+                    </menu>
+                    <button id="bt_UniformSize" getLabel="getLabel" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip"  onAction="on_Action"/><!--统一大小-->
+                    <button id="bt_UniformWidth" getLabel="getLabel" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action"/><!--统一宽度-->
+                    <button id="bt_UniformHeight" getLabel="getLabel" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action"/><!--统一高度-->
+                    <button id="bt_SwapLocation" getLabel="getLabel" image="bt_SwapLocation" getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action" /><!--交换位置-->
+                    <button id="bt_SwapText" getLabel="getLabel" getImage="getImage"  getScreentip="getScreentip"  getSupertip="getSupertip" onAction="on_Action" getShowLabel="getShowLabel"/><!--交换文本-->
+                    <button id="bt_UniformGroupStyle" getLabel="getLabel" getImage="getImage" getScreentip="getScreentip"  getSupertip="getSupertip"  onAction="on_Action"/><!--统一组样式-->   
+                    
+
+                     <separator id="spr_sbt_CopyStyle" />
+
+                    <splitButton id="sbt_CopyStyle" size="large" getEnabled="getEnabled">
+                        <button id="bt_SuperStyle" getLabel="getLabel" getImage="getImage"  onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /><!--超级刷-->
+                        <menu id="mu_CopyStyle" >
+                            <menuSeparator id="msr_position" title="位置"/>
+                            <button id="bt_StyleSize" getLabel="getLabel" getImage="getImage"   onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /><!--大小--> 
+                            <button id="bt_StylePosition" getLabel="getLabel" getImage="getImage"  onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /><!--位置-->   
+                            <button id="bt_StyleSizeAndPosition" getLabel="getLabel" getImage="getImage"  onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /><!--大小和位置-->   
+                            <button id="bt_StyleAngle" getLabel="getLabel" getImage="getImage"  onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /><!--旋转角度-->   
+                            <button id="bt_CopyLayoutSpacing" getLabel="getLabel" getImage="getImage"  onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /><!--布局间距-->   
+                            
+                            <menuSeparator id="mu_StyleShape" title="形状"/>
+                            <button id="bt_StyleShape_Fill" getLabel="getLabel" getImage="getImage"  onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /><!--填充-->   
+                            <button id="bt_StyleShape_Line" getLabel="getLabel" getImage="getImage"  onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /><!--线条-->
+                            <button id="bt_StyleShape_Shadow" getLabel="getLabel" getImage="getImage"   onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /><!--阴影-->
+
+                            <menuSeparator id="mu_StyleText" title="文本"/>
+                            <button id="bt_StyleText_FontNameAndSize" getLabel="getLabel" getImage="getImage"   onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /><!--字体字号-->
+                            <button id="bt_StyleText_Paragraph" getLabel="getLabel" getImage="getImage"   onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /><!--段落-->  
+                            <button id="bt_StyleText_ParagraphStyle" getLabel="getLabel" getImage="getImage"   onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /><!--段落层级样式-->
+
+
+                        </menu>
+                    </splitButton>
+                    <button id="bt_StylePaster" getLabel="getLabel" getImage="getImage" size="large" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /><!--粘贴样式--> 
+
+                    <dialogBoxLauncher>
+                        <button id="gp_Style_Set"  onAction="on_Action"/><!--设置-->
+                    </dialogBoxLauncher>  
+                </group>
+
+
+
+
+                <!--导出-->    
+                <group id="gp_Export" getLabel="getLabel" getImage="getImage"> <!--导出-->
+                     <!-- <menu id="mu_Check" getLabel="getLabel" getImage="getImage" getSize="getSize" > 检查 -->
+                        <!-- <button id="bt_LonelyText" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" />检测落单文字 -->
+                        <!-- <button id="bt_SpecialFont" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" />检测特殊字体 -->
+                        
+                        <!-- <button id="bt_DocumentEdit" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" />全文编辑 -->
+                        <!-- <button id="bt_ShapeAttribute" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" />图形属性 -->
+                        <!-- <button id="bt_DrawSketch" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" />绘制PPT草图 -->
+                     <!-- </menu> -->
+                    <!--导出-->      
+                    <menu id="mu_Export" getLabel="getLabel" getImage="getImage" getSize="getSize" > <!--导出-->
+                        <menuSeparator id="msr_image" getTitle="getTitle"/>
+                        <button id="bt_LayerStamp" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /><!--盖印图层-->
+                        <button id="bt_ExportPicture" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /><!--导出图片-->
+                        <button id="bt_ExportPDF" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /> <!--导出高清演示文稿-->
+                        <menuSeparator id="msr_Font" getTitle="getTitle"/>
+                        <button id="bt_ExportFonts" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /><!--导出字体-->
+                        <button id="bt_pptOutLine" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /><!--文件转曲-->
+                        <!-- <button id="bt_ReplaceFonts" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" />替换字体 -->
+                        <button id="bt_FontsNote" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /><!--字体备注-->
+                        
+                        <menuSeparator id="msr_mp4" getTitle="getTitle"/><!--导出视频 -->
+                        <button id="bt_ExportSelectSlideMp4" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /><!--导出所选页视频-->
+                        <!-- <button id="bt_ExportSelectAllMp4" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" />所有页视频 -->
+                        <!-- 并与拆分-->
+                        <!-- <menuSeparator id="msr_SlideSplit"  getTitle="getTitle"/>合并与拆分 -->
+                        <!-- <button id="bt_SelectSlideToNewPre" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" />提取页面 -->
+                        <!-- <button id="bt_SelectSlideSplitToNewPre" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" />拆分选定页面 -->
+                        <!-- <button id="bt_MergePre" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" />合并演示文稿 -->
+                    </menu>
+                </group>
+
+
+                <!--扩展-->
+                <group id="gp_Extend" getLabel="getLabel" getImage="getImage"><!--排版-->
+                    <!-- 排列 -->
+                     <menu id="mu_DesignTools" getLabel="getLabel" getImage="getImage" getSize="getSize" ><!--设计工具 itemSize="large"-->
+                        <button id="bt_FieldOfView" getLabel="getLabel" getImage="getImage" onAction="on_Action"  getScreentip="getScreentip"  getSupertip="getSupertip" /><!--智能透视-->
+                        
+                        <button id="bt_BatchSlides" getLabel="getLabel" getImage="getImage" onAction="on_Action"  getScreentip="getScreentip"  getSupertip="getSupertip" /><!--批量生成-->
+                        <!-- <button id="bt_BatchShapes" getLabel="getLabel" getImage="getImage" onAction="on_Action"  getScreentip="getScreentip"  getSupertip="getSupertip" />跨页工具 -->
+                        <!-- <button id="bt_ShapeCalculator" getLabel="getLabel" getImage="getImage" onAction="on_Action"  getScreentip="getScreentip"  getSupertip="getSupertip" />图形计算器 -->
+                        <!-- <button id="bt_ThreeDer" getLabel="getLabel" getImage="getImage" onAction="on_Action"  getScreentip="getScreentip"  getSupertip="getSupertip"  />三维秘书 -->
+                        <button id="bt_ThreeDLayer" getLabel="getLabel" image="bt_ThreeDLayer" onAction="on_Action"  getScreentip="getScreentip"  getSupertip="getSupertip" /><!--3D分层-->
+                        <button id="bt_TextVar" getLabel="getLabel" getImage="getImage" onAction="on_Action"  getScreentip="getScreentip"  getSupertip="getSupertip" /><!--变量文本-->
+                        
+
+                        <!-- 批量增减 -->
+                        <!-- <menu id="mu_BatchShape" getLabel="getLabel" getImage="getImage">批量增减 -->
+                            <!-- <menuSeparator id="msr_BatchAdd" getTitle="getTitle"/>批量添加 -->
+                            <!-- <button id="bt_PasteToAllSlide" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" />粘贴到所有页 -->
+                            <!-- <button id="bt_PasteToSelectSlide" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" />粘贴到选定页 -->
+                            <!-- <menuSeparator id="msr_BatchDelete" getTitle="getTitle"/>批量删除 -->
+                            <!-- <button id="bt_DeleteSamePosition" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" />删除相同位置 -->
+                            <!-- <button id="bt_DeleteSameRectangle" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" />删除区域   -->
+                        <!-- </menu> -->
+                        <!-- <button id="bt_Text_Bigbang" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" />大爆炸 -->
+                    </menu>
+
+                   <menu id="mu_Extend" getLabel="getLabel" getImage="getImage" getSize="getSize" > <!--扩展-->
+                        <checkBox id="cbox_Tab_Node" getLabel="getLabel"  onAction="onAction"  getPressed="getPressed"  getScreentip="getScreentip"  getSupertip="getSupertip" getEnabled="getEnabled"/><!--顶点-->
+                        <!-- <checkBox id="cbox_Tab_Style" getLabel="getLabel"  onAction="onAction"  getPressed="getPressed"  getScreentip="getScreentip"  getSupertip="getSupertip" getEnabled="getEnabled"/>样式  -->
+                        <checkBox id="cbox_Tab_Mark" getLabel="getLabel"  onAction="onAction"  getPressed="getPressed"  getScreentip="getScreentip"  getSupertip="getSupertip" getEnabled="getEnabled"/><!--标注 -->
+                   </menu>
+
+                    <dialogBoxLauncher>
+                        <button id="gp_Typography_Set"  onAction="on_Action"/><!--设置-->
+                    </dialogBoxLauncher>     
+                </group>
+
+
+                <!--最近使用 -->    
+                <group id="gp_Used" getLabel="getLabel" getImage="getImage"> <!--导出-->
+                    <button id="bt_Used3" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /><!--最近使用按钮3-->
+                    <button id="bt_Used2" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /><!--最近使用按钮2-->
+                    <button id="bt_Used1" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /><!--最近使用按钮1-->
+                </group>
+            </tab>
+
+             <!-- 神器 -->
+            <tab id="tab_tools" label="神器" getVisible="getVisible" >
+                <!-- 灵感 -->
+                <group id="gp_tools_idea" getLabel="getLabel"  image="huaban">
+                    <splitButton id="sbt_tools_idea" size="large" >
+                        <button id="bt_google" getLabel="getLabel" onAction="on_Action" image="google" tag="Google" /><!--谷歌-->
+                        <menu id="mu_tools_idea" itemSize="large" >
+                            <button id="bt_baidu" getLabel="getLabel" onAction="on_Action" image="baidu" tag="baidu"/><!--百度-->
+                            <button id="bt_huaban" getLabel="getLabel" onAction="on_Action" image="huaban" tag="huaban"/><!--花瓣网-->
+                        </menu>
+                    </splitButton>
+                </group>
+                <group id="gp_tools_Close"  getLabel="getLabel" getImage="getImage"><!--关闭-->
+                    <button id="bt_tools_Close" getLabel="getLabel"  getImage="getImage" onAction="on_Action" getSize="getSize" />
+                </group>
+            </tab>
+
+             <!-- 顶点 -->
+            <tab id="tab_Nodes" label="顶点" getVisible="getVisible" >
+                <!-- 编辑顶点-->
+                <group id="gp_Nodes_Points" getLabel="getLabel" getImage="getImage"><!--编辑顶点-->
+                    <button id="bt_PointToShape" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /><!--以点成形-->
+                    <button id="bt_Attention" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /> <!--顶点立正-->
+                </group>
+                 <!-- 路径-->
+                <group id="gp_Nodes_Paths" getLabel="getLabel" getImage="getImage"><!--路径-->
+                    <button id="bt_NodesOpen" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /><!--开放路径-->
+                    <button id="bt_NodesClose" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /><!--闭合路径-->
+                    <button id="bt_CurveToLine" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /><!--曲线转直-->
+                </group>
+                <group id="gp_Nodes_Close"  getLabel="getLabel" getImage="getImage"><!--关闭-->
+                    <button id="bt_Nodes_Close" getLabel="getLabel"  getImage="getImage" onAction="on_Action" getSize="getSize"  getScreentip="getScreentip"  getSupertip="getSupertip" />
+                </group>
+            </tab>
+
+            <!-- 标注 -->
+            <tab id="tab_Mark" label="标注" getVisible="getVisible" >
+                <group id="gp_Mark_Size" getLabel="getLabel" getImage="getImage"><!--标注-->
+                    <button id="bt_Mark_Width" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /><!--宽-->
+                    <button id="bt_Mark_Height" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /><!--高-->
+                    <button id="bt_Mark_Size" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /><!--宽高-->
+                    <button id="bt_Mark_Angle" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /><!--角度-->
+                </group>
+
+                 <group id="gp_Mark_Position" getLabel="getLabel" getImage="getImage"><!--标注位置-->
+                    <button id="bt_Mark_Left" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip"  /><!--左-->
+                    <button id="bt_Mark_Top" getLabel="getLabel" getImage="getImage" onAction="on_Action"  getScreentip="getScreentip"  getSupertip="getSupertip" /><!--上-->
+                    <button id="bt_Mark_Right" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip"  /><!--右-->
+                    <button id="bt_Mark_Bottom" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip"  /><!--下-->
+                    <button id="bt_ChangeArrow" getLabel="getLabel" getImage="getImage" onAction="on_Action"  getScreentip="getScreentip"  getSupertip="getSupertip" /><!--交换箭头-->
+                 </group>
+
+                 <group id="gp_Mark_Color" getLabel="getLabel" getImage="getImage"><!--标注颜色-->
+                    <button id="bt_Mark_RGB" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip"  /><!--RGB色值-->   
+                    <button id="bt_Mark_HSL" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip"  /><!--HSL色值-->
+                    <button id="bt_Mark_Hex" getLabel="getLabel" getImage="getImage" onAction="on_Action"  getScreentip="getScreentip"  getSupertip="getSupertip" /><!--16进制色值-->
+                 </group>
+
+                 <group id="gp_Mark_Circle" getLabel="getLabel" getImage="getImage"><!--圆-->
+                    <button id="bt_Mark_Radius" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip"  /><!--半径-->
+                    <button id="bt_Mark_Diameter" getLabel="getLabel" getImage="getImage" onAction="on_Action"  getScreentip="getScreentip"  getSupertip="getSupertip" /><!--直径-->
+                    <button id="bt_Show_CircleCenter" getLabel="getLabel" getImage="getImage" onAction="on_Action"  getScreentip="getScreentip"  getSupertip="getSupertip" /><!--显示图形圆心-->
+                    <button id="bt_Show_GroupCenter" getLabel="getLabel" getImage="getImage" onAction="on_Action"  getScreentip="getScreentip"  getSupertip="getSupertip" /><!--显示组圆心-->
+                    <button id="bt_DrawCircle_Radius" getLabel="getLabel" getImage="getImage" onAction="on_Action"  getScreentip="getScreentip"  getSupertip="getSupertip" /><!--半径画圆-->
+                    <button id="bt_DrawCircle_Diamete" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip"  /><!--直径画圆-->
+                 </group>
+                <group id="gp_Mark_close"  getLabel="getLabel" getImage="getImage"><!--关闭-->
+                    <button id="bt_Mark_Close" getLabel="getLabel"  getImage="getImage" onAction="on_Action" getSize="getSize" />
+                </group>
+            </tab>
+
+            <!-- 样式-->
+            <tab id="tab_Style" label="样式" getVisible="getVisible" >
+                 <group id="gp_Style_Debug" getLabel="getLabel" getImage="getImage"><!--状态-->
+                    <labelControl  id="gp_Style_label1" getLabel="getLabel" />
+                    <labelControl  id="gp_Style_label2" getLabel="getLabel" />
+                    <labelControl  id="gp_Style_label3" getLabel="getLabel" />
+                </group>
+                 <group id="gp_Style_Shape" getLabel="getLabel" getImage="getImage"><!--形状样式-->
+                    <button id="bt_Style_ShapeShadow" getLabel="getLabel" getImage="getImage" getSize="getSize" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /> <!--投影-->
+                    <button id="bt_Style_ShapeReflection" getLabel="getLabel" getImage="getImage" getSize="getSize" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /> <!--映像-->
+                    <button id="bt_Style_ShapeGlow" getLabel="getLabel" getImage="getImage" getSize="getSize" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /> <!--发光-->
+                    <button id="bt_Style_ShapeSoftEdge" getLabel="getLabel" getImage="getImage" getSize="getSize" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /> <!--柔化边缘-->
+                    <button id="bt_Style_ShapeThreeD" getLabel="getLabel" getImage="getImage" getSize="getSize" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /> <!--三维格式-->
+                    <button id="bt_Style_ShapeThreeDRotation" getLabel="getLabel" getImage="getImage" getSize="getSize" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /> <!--三维旋转-->
+                </group>
+                 <group id="gp_Style_Text" getLabel="getLabel" getImage="getImage"><!--文字样式-->
+                    <button id="bt_Style_TextShadow" getLabel="getLabel" getImage="getImage" getSize="getSize" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /> <!--投影-->
+                    <button id="bt_Style_TextReflection" getLabel="getLabel" getImage="getImage" getSize="getSize" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /> <!--映像-->
+                    <button id="bt_Style_TextGlow" getLabel="getLabel" getImage="getImage" getSize="getSize" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /> <!--发光-->
+                    <button id="bt_Style_TextThreeD" getLabel="getLabel" getImage="getImage" getSize="getSize" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /> <!--三维格式-->
+                    <button id="bt_Style_TextThreeDRotation" getLabel="getLabel" getImage="getImage" getSize="getSize" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /> <!--三维旋转-->
+                </group>
+                 <group id="gp_Style_Color" getLabel="getLabel" getImage="getImage"><!--颜色样式-->
+                    <labelControl  id="lc_Style_Shape" getLabel="getLabel" /><!--拷贝颜色-->
+                    <button id="bt_Style_ShapeFillColor" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /> <!--形状填充-->
+                    <button id="bt_Style_ShapeLineColor" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /> <!--形状轮廓-->
+                    <separator id="spr_Style" />
+                    <labelControl  id="lc_Style_Text" getLabel="getLabel" />
+                    <button id="bt_Style_TextFillColor" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /> <!--文字填充-->
+                    <button id="bt_Style_TextLineColor" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /> <!--文字轮廓-->
+                    <button id="bt_Style_ColorChange" getLabel="getLabel" getImage="getImage" onAction="on_Action" getScreentip="getScreentip"  getSupertip="getSupertip" /> <!--填轮互转-->
+                </group>
+
+            </tab>
+        </tabs>
+    </ribbon>
+
+    <contextMenus>
+        <contextMenu idMso="ContextMenuFrame">
+            <splitButton id="sbt_TextBox" insertBeforeMso="PasteGalleryMini">
+                <toggleButton  idMso="TextBoxInsertHorizontal" label="文本框" />
+                <menu id="mu_TextBox" getVisible="getVisible">
+                    <toggleButton  idMso="TextBoxInsertVertical"/>
+                </menu>
+            </splitButton>
+            <toggleButton  idMso="ShapeRectangle" insertBeforeMso="PasteGalleryMini" label="矩形"/>
+            <toggleButton  idMso="ShapeRoundedRectangle" insertBeforeMso="PasteGalleryMini" label="圆角矩形"/>
+            <splitButton id="sbt_ShapeOval" insertBeforeMso="PasteGalleryMini" >
+                <toggleButton  idMso="ShapeOval" insertBeforeMso="PasteGalleryMini"/>
+                <menu id="mu_ShapeOval" getVisible="getVisible" >
+                    <toggleButton  idMso="ShapeIsoscelesTriangle" label="三角形" />
+                </menu>
+            </splitButton>
+            <splitButton id="sbt_Line" insertBeforeMso="PasteGalleryMini">
+                <toggleButton  idMso="ShapeStraightConnector" label="直线"/>
+                <menu id="mu_Arrow"  >
+                    <toggleButton  idMso="ShapeStraightConnectorArrow"/>
+                    <toggleButton  idMso="ShapeRightArrow" />
+                </menu>
+            </splitButton>
+            <gallery idMso="ShapesInsertGallery" insertBeforeMso="PasteGalleryMini"  />
+        </contextMenu>
+    </contextMenus>
+
+</customUI>
